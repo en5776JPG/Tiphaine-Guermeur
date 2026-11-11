@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiphaine Guermeur - Coiffeuse à Domicile (Mixte & PMR)</title>
+<meta name="description" content="Coiffeuse à domicile à Vergèze. Coiffure mixte (femmes, hommes, enfants) et spécialiste PMR/Seniors. Intervention à Vergèze, Codognan, Mus, Uchaud, Vestric-et-Candiac, Bernis, Aimargues, Vauvert, Aigues-Vives.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* =========================================
+   VARIABLES & RESET
+   ========================================= */
+:root{
+    --creme:#f9f8f5;
+    --sable:#e8e2d9;
+    --sable-clair:#f4f2ed;
+    --noir:#0a0a0a;
+    --gris-fonce:#2a2a2a;
+    --gris-zone:#151515;
+    --gris-moyen:#888;
+    --or:#c5a880;
+    --or-clair:#e5d3ba;
+    --blanc:#fff;
+    --font-titre:'Playfair Display',serif;
+    --font-texte:'Montserrat',sans-serif;
+    --transition-luxe: cubic-bezier(0.25, 1, 0.5, 1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:var(--font-texte);
+    color:var(--gris-fonce);
+    background-color:var(--blanc);
+    line-height:1.9;
+    font-size:16px;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--font-titre);color:var(--noir);line-height:1.1;font-weight:400}
+a{text-decoration:none;color:inherit}
+
+/* =========================================
+   BARRE DE PROGRESSION
+   ========================================= */
+#progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px; 
+    background: var(--or); width: 0%; z-index: 9999; 
+    transition: width 0.1s;
+}
+
+/* =========================================
+   CURSEUR PERSONNALISÉ (PC UNIQUEMENT)
+   ========================================= */
+@media (pointer: fine) {
+    body, a, button, input, select, textarea {cursor: none !important;}
+    .cursor-dot {
+        position: fixed; top: 0; left: 0; width: 8px; height: 8px; 
+        background-color: var(--or); border-radius: 50%; pointer-events: none; 
+        z-index: 10000; transform: translate(-50%, -50%); 
+        transition: width 0.2s, height 0.2s;
+    }
+    .cursor-outline {
+        position: fixed; top: 0; left: 0; width: 40px; height: 40px; 
+        border: 1px solid var(--or); border-radius: 50%; pointer-events: none; 
+        z-index: 9999; transform: translate(-50%, -50%); 
+        transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+        transition-timing-function: var(--transition-luxe);
+    }
+    .cursor-hover .cursor-dot {width: 12px; height: 12px;}
+    .cursor-hover .cursor-outline {
+        width: 60px; height: 60px; 
+        border-color: rgba(197, 168, 128, 0.5); 
+        background-color: rgba(197, 168, 128, 0.05);
+    }
+}
+
+/* =========================================
+   BOUTONS PREMIUM
+   ========================================= */
+.btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:18px 40px; background-color:var(--noir); color:var(--blanc);
+    font-weight:500; font-size:13px; letter-spacing:2px; text-transform:uppercase;
+    transition: all 0.5s var(--transition-luxe); border:1px solid var(--noir);
+    position:relative; overflow:hidden; z-index:1;
+}
+.btn::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(197, 168, 128, 0.4), transparent);
+    transition: left 0.7s var(--transition-luxe); z-index: -1;
+}
+.btn:hover::before {left: 100%;}
+.btn:hover {
+    background-color:transparent; color:var(--noir);
+    transform:translateY(-3px); box-shadow:0 15px 25px rgba(197, 168, 128, 0.15);
+    border-color: var(--or);
+}
+.btn-outline{background-color:transparent; color:var(--noir); border:1px solid var(--noir);}
+.btn-outline:hover {
+    background-color:var(--noir); color:var(--blanc);
+    transform:translateY(-3px); box-shadow:0 15px 25px rgba(0,0,0,0.1);
+}
+.btn i{margin-right:10px; font-size:14px;}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+.top-banner{
+    background-color:var(--noir); color:var(--blanc); text-align:center;
+    padding:12px; font-size:.75rem; font-weight:400; position:fixed; top:0; width:100%;
+    z-index:1001; letter-spacing:2px; text-transform:uppercase;
+}
+nav{
+    position:fixed; top:40px; width:100%; background-color:rgba(255,255,255,.98);
+    padding:15px 5%; display:flex; justify-content:space-between; align-items:center;
+    z-index:1000; border-bottom:1px solid rgba(0,0,0,.05);
+    transition: all 0.5s var(--transition-luxe);
+}
+nav.scrolled {padding: 10px 5%; box-shadow: 0 10px 30px rgba(0,0,0,0.08);}
+.logo{display:flex; align-items:center; gap:15px;}
+.logo img{height:60px; width:60px; border-radius:50%; object-fit:cover; transition: height 0.5s var(--transition-luxe);}
+nav.scrolled .logo img {height: 45px; width: 45px;}
+.logo-text{font-family:var(--font-titre); font-size:24px; font-weight:600; color:var(--noir); letter-spacing:.5px;}
+.nav-links{display:flex; gap:35px;}
+.nav-links a{
+    font-weight:500; font-size:12px; text-transform:uppercase; letter-spacing:1.5px;
+    color:var(--gris-fonce); transition:color 0.3s; position:relative;
+}
+.nav-links a::after{
+    content:''; position:absolute; bottom:-5px; left:0; width:0; height:1px;
+    background:var(--or); transition:width 0.4s var(--transition-luxe);
+}
+.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{color:var(--noir);}
+.menu-toggle{display:none; font-size:24px; cursor:pointer; color:var(--noir);}
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.hero {
+    height: 100vh; display: flex; justify-content: center; align-items: center;
+    background-color: var(--creme); margin-top: 80px; position: relative; overflow: hidden;
+    background-image: radial-gradient(circle at center, #ffffff 0%, #f4f2ed 100%);
+}
+.hero-bg-circle {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    border-radius: 50%; pointer-events: none; z-index: 0;
+}
+.circle-1 {
+    width: 75vw; max-width: 850px; aspect-ratio: 1/1;
+    border: 1px solid rgba(197, 168, 128, 0.2);
+    animation: pulseSlow 10s infinite alternate ease-in-out;
+}
+.circle-2 {
+    width: 55vw; max-width: 650px; aspect-ratio: 1/1;
+    border: 1px dashed rgba(0, 0, 0, 0.06);
+    animation: rotateSlow 50s linear infinite;
+}
+@keyframes pulseSlow {from {transform: translate(-50%, -50%) scale(0.95);} to {transform: translate(-50%, -50%) scale(1.05);}}
+@keyframes rotateSlow {from {transform: translate(-50%, -50%) rotate(0deg);} to {transform: translate(-50%, -50%) rotate(360deg);}}
+
+.hero-v-text-left, .hero-v-text-right {
+    position: absolute; top: 50%; transform: translateY(-50%) rotate(-90deg);
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 10px;
+    font-weight: 600; color: var(--or); white-space: nowrap; z-index: 1;
+}
+.hero-v-text-left {left: -130px;}
+.hero-v-text-right {right: -130px; transform: translateY(-50%) rotate(90deg);}
+
+.hero-content {position: relative; z-index: 2; text-align: center; max-width: 1000px; padding: 0 20px; display: flex; flex-direction: column; align-items: center;}
+.hero-seal {
+    width: 100px; height: 100px; border-radius: 50%; border: 1px solid var(--or);
+    padding: 6px; margin-bottom: 30px; background-color: var(--creme);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative;
+}
+.hero-seal::after {
+    content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
+    border: 1px solid rgba(197, 168, 128, 0.3); border-radius: 50%;
+}
+.hero-seal img {width: 100%; height: 100%; border-radius: 50%; object-fit: cover;}
+
+.hero-badge {
+    display: inline-flex; align-items: center; gap: 20px;
+    font-family: var(--font-texte); font-size: .85rem; text-transform: uppercase;
+    letter-spacing: 6px; color: var(--noir); margin-bottom: 20px; font-weight: 600;
+}
+.hero-badge::before, .hero-badge::after {content: ''; width: 40px; height: 1px; background-color: var(--or);}
+
+.hero h1 {
+    font-size: clamp(3.5rem, 9vw, 8rem); margin-bottom: 30px; line-height: 0.9;
+    color: var(--noir); letter-spacing: -3px; display: flex; flex-direction: column; align-items: center;
+}
+.hero h1 .main-title {font-weight: 700; text-transform: uppercase;}
+.hero h1 .italic-title {font-style: italic; font-weight: 400; color: var(--gris-moyen); margin-top: 15px; letter-spacing: -1px;}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.15rem); color: var(--gris-fonce);
+    max-width: 650px; margin: 0 auto 50px auto; font-weight: 400; line-height: 1.8;
+    background-color: rgba(249, 248, 245, 0.85); padding: 10px 20px;
+}
+.hero-actions {display: flex; justify-content: center; gap: 20px;}
+
+/* Cascade Animations */
+.cascade-1 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.2s;}
+.cascade-2 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.4s;}
+.cascade-3 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.6s;}
+.cascade-4 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.8s;}
+@keyframes slideUpFade {to {opacity: 1; transform: translateY(0);}}
+
+/* =========================================
+   SECTIONS GLOBALES
+   ========================================= */
+section{padding:120px 0;}
+.section-title{text-align:center; font-size:3rem; margin-bottom:50px;}
+.section-title span{
+    display:block; font-family:var(--font-texte); font-size:13px;
+    text-transform:uppercase; letter-spacing:4px; color:var(--or);
+    margin-bottom:15px; font-weight:600;
+}
+
+/* =========================================
+   À PROPOS
+   ========================================= */
+.about{display:flex; align-items:center; gap:8%; max-width:1100px; margin:0 auto; padding:0 5%; background-color: var(--blanc);}
+.about-img-wrapper{flex:1; position: relative; padding: 15px;}
+.about-img-wrapper::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 90%; height: 90%;
+    border: 2px solid var(--or); z-index: 0; transition: all 0.5s var(--transition-luxe);
+}
+.about-img-wrapper:hover::before {top: -10px; left: -10px;}
+.about-img {
+    width:100%; height:auto; display:block; position: relative; z-index: 1;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12); transition: transform 0.8s var(--transition-luxe), filter 0.8s;
+    filter: grayscale(20%);
+}
+.about-img-wrapper:hover .about-img {transform: scale(1.02); filter: grayscale(0%);}
+.about-text{flex:1.2; padding-left: 20px;}
+.about-text h2{font-size:2.8rem; margin-bottom:25px;}
+.about-text p{margin-bottom:20px; font-size:1.05rem; color:var(--gris-fonce); font-weight:400;}
+.about-text .signature{font-family:var(--font-titre); font-style:italic; font-size:2rem; color:var(--noir); margin-top:30px;}
+
+/* =========================================
+   MATERIEL
+   ========================================= */
+.equipment-section {background-color: var(--sable-clair); padding: 120px 5%;}
+.equipment-container {max-width: 1100px; margin: 0 auto; text-align: center;}
+.equipment-header {margin-bottom: 60px;}
+.equipment-header h2 {font-size: 2.8rem; margin-bottom: 20px;}
+.equipment-header p {max-width: 700px; margin: 0 auto 20px auto; font-size: 1.05rem; color: var(--gris-fonce); font-weight: 400;}
+.equipment-header .highlight {color: var(--or); font-weight: 600;}
+.equipment-grid {display: grid; grid-template-columns: 1fr 1fr; gap: 30px;}
+.equipment-img-wrapper {
+    position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    border: 8px solid var(--blanc); background-color: var(--blanc);
+    transition: transform 0.6s var(--transition-luxe);
+}
+.equipment-img-wrapper:hover {transform: translateY(-8px); box-shadow: 0 35px 60px rgba(0,0,0,0.18);}
+.equipment-img-wrapper img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.8s var(--transition-luxe), filter 0.8s;
+    aspect-ratio: 4/3; filter: grayscale(20%);
+}
+.equipment-img-wrapper:hover img {transform: scale(1.05); filter: grayscale(0%);}
+
+/* =========================================
+   TARIFS (Effet CSS pur, 0 bug)
+   ========================================= */
+.pricing{background-color:var(--sable); padding:120px 5%;}
+.pricing-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:40px; max-width:1100px; margin:0 auto;}
+.price-card{
+    background:var(--blanc); padding:50px 40px; box-shadow:0 15px 35px rgba(0,0,0,.05);
+    position:relative; border-top:4px solid var(--or);
+    transition: transform 0.4s var(--transition-luxe), box-shadow 0.4s var(--transition-luxe);
+    will-change: transform, box-shadow;
+}
+.price-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(197, 168, 128, 0.15); /* Ombre dorée */
+}
+.price-card h3{text-align:center; font-size:1.8rem; margin-bottom:35px; font-family:var(--font-titre); position:relative; padding-bottom:15px;}
+.price-card h3::after{content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:40px; height:2px; background:var(--or);}
+.price-list{list-style:none;}
+.price-list li{display:flex; justify-content:space-between; align-items:baseline; padding:15px 0; border-bottom:1px dashed #e0e0e0; font-size:1.05rem; color:var(--gris-fonce); font-weight:400;}
+.price-list li:last-child{border-bottom:none;}
+.price-list span{font-weight:600; color:var(--noir); font-family:var(--font-titre); font-size:1.6rem;}
+.deplacement-note{text-align:center; margin-top:40px; font-size:.85rem; color:var(--gris-fonce); text-transform:uppercase; letter-spacing:2px; font-weight:500;}
+
+/* =========================================
+   AVANT / APRES
+   ========================================= */
+.before-after-section{background-color:var(--blanc); padding:120px 0 100px 0; text-align:center;}
+.ba-grid{display:flex; justify-content:center; gap:40px; max-width:1000px; margin:0 auto; flex-wrap:wrap; padding: 0 5%;}
+.ba-item{
+    position:relative; width:calc(50% - 20px); max-width:400px; height:500px;
+    border-radius:200px 200px 0 0; overflow:hidden; background-color:#fff;
+    box-shadow:0 25px 50px rgba(0,0,0,.12); border: 6px solid var(--blanc);
+    transition: transform 0.6s var(--transition-luxe), box-shadow 0.6s;
+}
+.ba-item:hover {transform: translateY(-10px); box-shadow: 0 35px 60px rgba(0,0,0,0.18);}
+.ba-item img{width:100%; height:100%; object-fit:cover; transform:scale(1.02); transition: transform 0.8s var(--transition-luxe);}
+.ba-item:hover img {transform: scale(1.08);}
+.ba-badge{
+    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+    background-color:rgba(255,255,255,.95); color:var(--noir); padding:8px 30px;
+    font-size:.8rem; font-weight:600; text-transform:uppercase; letter-spacing:2px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15); border: 1px solid #ddd; z-index: 2;
+}
+
+/* =========================================
+   GALERIE
+   ========================================= */
+.gallery-section{background-color:var(--gris-fonce); padding:120px 0; overflow:hidden;}
+.gallery-section .section-title{color:var(--blanc); margin-bottom:50px;}
+.gallery-section .section-title span{color:var(--or);}
+.carousel-wrapper{position:relative; max-width:1000px; margin:0 auto; padding:0 40px;}
+.carousel-track{
+    display:flex; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory; padding:20px 0;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none;
+    scroll-behavior:smooth; will-change:scroll-position; transform:translateZ(0);
+    mask-image:linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image:linear-gradient(to right, black 85%, transparent 100%);
+}
+.carousel-track::-webkit-scrollbar{display:none;}
+.nav-btn{
+    position:absolute; top:50%; transform:translateY(-50%); width:50px; height:50px;
+    border-radius:50%; background:rgba(255,255,255,.1); color:var(--blanc);
+    border:1px solid rgba(255,255,255,.3); box-shadow:0 5px 15px rgba(0,0,0,.1);
+    cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem; transition:all 0.4s;
+}
+.nav-btn:hover{background:var(--blanc); color:var(--noir); border-color: var(--blanc);}
+.nav-btn.prev{left:-10px;}
+.nav-btn.next{right:-10px;}
+.carousel-item{
+    flex:0 0 28%; height:420px; scroll-snap-align:start; border-radius:150px 150px 0 0;
+    overflow:hidden; box-shadow:0 0 0 5px #444, 0 15px 30px rgba(0,0,0,.3); position: relative;
+}
+.carousel-item img{
+    width:100%; height:100%; object-fit:cover; transform:scale(1.02);
+    transition: transform 0.8s var(--transition-luxe), filter 0.8s; filter: grayscale(30%);
+}
+.carousel-item:hover img {transform: scale(1.1); filter: grayscale(0%);}
+
+/* =========================================
+   ZONE
+   ========================================= */
+.zone{background-color:var(--gris-zone); color:var(--blanc); text-align:center; padding:120px 5%; border-top: 1px solid rgba(197, 168, 128, 0.3);}
+.zone .section-title{color:var(--blanc);}
+.zone .section-title span{color:var(--or);}
+.zone-subtitle{max-width:600px; margin:0 auto 50px auto; color:#ccc; font-size:1.05rem; font-weight:400;}
+.zone-map-wrapper{max-width:800px; margin:0 auto 50px auto; box-shadow: 0 15px 40px rgba(0,0,0,0.6); overflow: hidden;}
+.zone-map-wrapper img{width:100%; height:auto; display:block; transition: transform 0.8s var(--transition-luxe);}
+.zone-map-wrapper:hover img {transform: scale(1.03);}
+.zone-cities-modern{font-family:var(--font-texte); font-size:.95rem; font-weight:400; color:var(--blanc); text-transform:uppercase; letter-spacing:3px; line-height:2.5; margin-bottom:40px;}
+.zone-cities-modern span{color:#777; margin:0 10px;}
+.zone-hours-box{
+    display:inline-block; border:1px solid #444; padding:25px 40px; background-color: #1a1a1a;
+    transition: border-color 0.4s;
+}
+.zone-hours-box:hover {border-color: var(--or);}
+.zone-hours-box .hours-title{font-size:.75rem; text-transform:uppercase; letter-spacing:2px; color:var(--or); margin-bottom:8px; display:block; font-weight:600;}
+.zone-hours-box .hours-time{font-family:var(--font-titre); font-size:1.6rem; color:var(--blanc); font-weight:400;}
+.zone-hours-box .hours-note{margin-top:12px; font-size:.8rem; color:#777; letter-spacing:1px; text-transform:uppercase;}
+
+/* =========================================
+   CONTACT
+   ========================================= */
+.contact-section {background-color: var(--sable); padding: 120px 5%; display: flex; justify-content: center;}
+.contact-card {
+    background-color: var(--blanc); padding: 60px 50px; width: 100%; max-width: 800px;
+    box-shadow: 0 35px 70px rgba(0,0,0,0.1); text-align: center; border-top: 5px solid var(--or);
+}
+.contact-card .section-title {margin-bottom: 30px;}
+.contact-info {margin-bottom: 40px; font-size: 1.1rem; color: var(--gris-fonce);}
+.phone-giant{
+    display:inline-block; font-size:2.8rem; font-weight:500; color:var(--noir);
+    margin:10px 0 40px 0; font-family:var(--font-titre); transition:transform 0.3s;
+}
+.phone-giant:hover{transform:scale(1.03);}
+.phone-giant i{margin-right:10px; font-size:2.2rem; color:var(--or);}
+.contact-form{display:flex; flex-direction:column; gap:35px; text-align:left;}
+.form-separator{text-align:center; margin-bottom:10px; font-weight:500; color:var(--gris-moyen); font-size:12px; letter-spacing:2px; text-transform:uppercase;}
+
+/* Floating Labels */
+.form-group{position:relative;}
+.form-group input,.form-group textarea,.form-group select{
+    width: 100%; padding:20px 16px 10px 16px; font-size:1rem; border:1px solid #ccc;
+    font-family:var(--font-texte); background-color:#fafafa; transition:all 0.4s var(--transition-luxe);
+    font-weight:400; color:var(--noir); border-radius:0;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+    outline:none; border-color:var(--or); background-color: var(--blanc);
+    box-shadow:0 0 0 3px rgba(197, 168, 128,.15);
+}
+.form-group label{
+    position:absolute; top:16px; left:16px; font-weight:500; font-size:1rem; color:#999;
+    pointer-events:none; transition: 0.4s var(--transition-luxe) all;
+}
+.form-group input:focus ~ label, .form-group input:not(:placeholder-shown) ~ label,
+.form-group textarea:focus ~ label, .form-group textarea:not(:placeholder-shown) ~ label,
+.form-group select:focus ~ label, .form-group select:not([value=""]) ~ label {
+    top: 6px; font-size: 0.7rem; color: var(--or); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+}
+.form-group select {
+    appearance:none;
+    background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a880%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat:no-repeat; background-position:right 15px top 50%; background-size:12px auto; cursor:pointer;
+}
+::placeholder{color:transparent !important;}
+
+footer{background-color:var(--noir); color:#888; text-align:center; padding:60px 20px; font-size:.85rem; font-weight:400;}
+footer a{color:#888; text-decoration:none; border-bottom:1px solid #888; cursor:pointer; transition: color 0.3s;}
+footer a:hover{color:var(--blanc); border-color:var(--blanc);}
+
+.floating-call{
+    position:fixed; bottom:30px; right:30px; background-color:var(--noir); color:var(--blanc);
+    width:65px; height:65px; border-radius:50%; display:flex; justify-content:center; align-items:center;
+    font-size:24px; box-shadow:0 10px 25px rgba(0,0,0,.3); z-index:2000; transition:all 0.4s var(--transition-luxe);
+    animation: pulseBtn 2s infinite;
+}
+@keyframes pulseBtn {
+    0% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(197, 168, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0); }
+}
+.floating-call:hover{transform:scale(1.1); background-color: var(--or); animation: none;}
+
+/* =========================================
+   ANIMATIONS AU SCROLL & MODALES
+   ========================================= */
+.luxury-reveal {
+    opacity: 0; transform: translate3d(0, 50px, 0);
+    transition: opacity 1.2s var(--transition-luxe), transform 1.2s var(--transition-luxe);
+    will-change: opacity, transform;
+}
+.luxury-reveal.visible {opacity: 1; transform: translate3d(0, 0, 0);}
+.delay-1{transition-delay:.2s;}
+.delay-2{transition-delay:.4s;}
+
+.modal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,.85); z-index:3000; justify-content:center; align-items:center; padding:20px; opacity:0; transition:opacity .4s ease;}
+.modal.active{display:flex; opacity:1;}
+.modal-content{background-color:var(--blanc); padding:50px; max-width:800px; width:100%; max-height:85vh; overflow-y:auto; position:relative; text-align:left; box-shadow: 0 30px 60px rgba(0,0,0,0.5);}
+.close-modal{position:absolute; top:20px; right:25px; font-size:28px; cursor:pointer; color:var(--gris-moyen); transition:color .3s;}
+.close-modal:hover{color:var(--noir);}
+.modal-content h2{margin-bottom:25px; font-size:1.8rem;}
+.modal-content h3{margin:25px 0 10px 0; font-size:1.1rem; font-family:var(--font-texte); font-weight:600;}
+.modal-content p{margin-bottom:15px; font-size:.9rem; color:var(--gris-fonce); font-weight:400;}
+
+/* =========================================
+   RESPONSIVE & OPTIMISATION MOBILE
+   ========================================= */
+@media (max-width: 1024px) {
+    .hero-v-text-left, .hero-v-text-right {display: none;}
+    .hero h1 {font-size: clamp(3.5rem, 10vw, 6rem);}
+    .about-img-wrapper::before {display: none;}
+    .about-text {padding-left: 0; text-align: center;}
+}
+@media (max-width: 900px) {
+    .about{flex-direction:column; gap:40px;}
+    .contact-card{padding:40px 20px;}
+    .phone-giant{font-size:2.2rem;}
+    .ba-item{height:450px;}
+    .carousel-item{flex:0 0 70%; height:380px; border-radius:100px 100px 0 0;}
+    .equipment-grid {grid-template-columns: 1fr;}
+}
+@media (max-width: 768px) {
+    .top-banner{font-size:.65rem; padding:10px;}
+    nav{top:40px; padding:12px 5%;}
+    .logo img{height:50px; width:50px;}
+    .logo-text{font-size:20px;}
+    .nav-links{display:none; flex-direction:column; position:absolute; top:70px; left:0; width:100%; background-color:var(--blanc); padding:30px 0; box-shadow:0 5px 15px rgba(0,0,0,.05);}
+    .nav-links.active{display:flex; align-items:center;}
+    .menu-toggle{display:block;}
+    .hero {padding: 0 5%;}
+    .hero-badge::before, .hero-badge::after {width: 20px;}
+    .hero p {font-size: 1rem; margin-bottom: 40px;}
+    .hero-actions{flex-direction:column; gap:15px;}
+    .hero-seal {width: 80px; height: 80px; margin-bottom: 20px;}
+    section{padding:80px 0;}
+    .section-title{font-size:2.4rem;}
+    .carousel-wrapper{padding:0 10px;}
+    .nav-btn{width:40px; height:40px; font-size:1rem; display:none;} 
+    .ba-item{width: 100%; max-width: 350px; height: 400px; border-radius: 150px 150px 0 0;}
+    .carousel-item{height:350px;}
+    .ba-badge{padding:6px 15px; font-size:.75rem; bottom:15px;}
+    .price-card{padding:40px 25px;}
+    .price-card:hover {transform: none; box-shadow:0 15px 35px rgba(0,0,0,.05);} /* Désactive le survol sur mobile */
+    .zone{padding:80px 5%;}
+    .zone-cities-modern{font-size:.85rem; line-height:2;}
+    .zone-hours-box{padding:20px; width:100%;}
+    .floating-call{bottom:20px; right:20px; left:20px; width:auto; height:60px; border-radius:0; font-size:16px; text-transform:uppercase; font-weight:600; letter-spacing:1px; animation: none;}
+    .floating-call::after{content:" Appeler Tiphaine"; margin-left:10px;}
+    .modal-content{padding:30px 20px;}
+    .cursor-dot, .cursor-outline {display: none !important;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+
+<div class="top-banner">Interventions : Vergèze, Codognan, Mus, Uchaud, Vestric-et-Candiac, Bernis, Aimargues, Vauvert, Aigues-Vives.</div>
+<nav id="main-nav">
+<div class="logo"><img src="image/logo.jpg.png" alt="Logo Tiphaine Guermeur"><span class="logo-text">Tiphaine Guermeur</span></div>
+<div class="menu-toggle" id="mobile-menu"><i class="fas fa-bars"></i></div>
+<div class="nav-links" id="nav-links">
+<a href="#apropos">À propos</a><a href="#materiel">Matériel</a><a href="#prestations">Tarifs</a><a href="#galerie">Galerie</a><a href="#zone">Zone</a><a href="#contact">Contact</a>
+</div>
+</nav>
+
+<header class="hero" id="accueil">
+    <div class="hero-bg-circle circle-1"></div>
+    <div class="hero-bg-circle circle-2"></div>
+    <div class="hero-v-text-left">COIFFURE MIXTE</div>
+    <div class="hero-v-text-right">À DOMICILE</div>
+    <div class="hero-content">
+        <div class="hero-seal cascade-1"><img src="image/logo.jpg.png" alt="Sceau"></div>
+        <span class="hero-badge cascade-1">L'art de la coiffure</span>
+        <h1 class="cascade-2">
+            <span class="main-title">POUR TOUS</span>
+            <span class="italic-title">& PMR</span>
+        </h1>
+        <p class="cascade-3">Coiffeuse professionnelle à domicile, je m'adapte à tous : femmes, hommes, enfants, ainsi qu'aux personnes âgées, à mobilité réduite ou en situation de handicap. Profitez d'une coiffure soignée dans le confort de votre foyer.</p>
+        <div class="hero-actions cascade-4">
+            <a href="tel:0658301291" class="btn"><i class="fas fa-phone"></i> 06 58 30 12 91</a>
+            <a href="#prestations" class="btn btn-outline">Découvrir les tarifs</a>
+        </div>
+    </div>
+</header>
+
+<section id="apropos">
+<div class="about">
+<div class="about-img-wrapper luxury-reveal"><img class="about-img" src="image/portrait.jpg.png" loading="lazy" decoding="async" alt="Tiphaine Guermeur"></div>
+<div class="about-text luxury-reveal delay-1">
+<h2>L'expertise au service de votre confort</h2>
+<p>Je m'appelle Tiphaine Guermeur, coiffeuse à domicile basée à Vergèze. Titulaire d'un CAP et d'un BP Coiffure, je possède plus de 20 ans d'expérience et je suis autoentrepreneur depuis 2012.</p>
+<p>Je propose une coiffure mixte pour toute la famille (femmes, hommes, enfants). Ma spécialité ? La <strong>coiffure adaptée</strong>. J'interviens auprès des personnes âgées, à mobilité réduite, en situation de handicap ou atteintes de pathologies, que ce soit à leur domicile, en EHPAD ou en centre de rééducation.</p>
+<p>J'adapte ma technique, mon matériel et mon rythme à chaque situation. Mon objectif : vous redonner le sourire et le plaisir d'une coiffure soignée, sans aucune contrainte.</p>
+<div class="signature">Tiphaine G.</div>
+</div>
+</div>
+</section>
+
+<section id="materiel" class="equipment-section">
+    <div class="equipment-container">
+        <div class="equipment-header luxury-reveal">
+            <span class="hero-badge" style="margin-bottom: 15px;">Professionnalisme</span>
+            <h2>Un matériel de pointe, une hygiène irréprochable.</h2>
+            <p>Pour vous offrir le meilleur, j'utilise du matériel professionnel haut de gamme, stérilisé après chaque utilisation. Ciseaux japonais, tondeuses de précision, brosses et produits de soin : tout est pensé pour sublimer votre chevelure en toute sécurité.</p>
+            <p class="highlight">Le confort et la qualité d'un salon, directement chez vous.</p>
+        </div>
+        <div class="equipment-grid luxury-reveal delay-1">
+            <div class="equipment-img-wrapper">
+                <img src="image/materiel.jpg.png" loading="lazy" decoding="async" alt="Matériel professionnel de coiffure">
+            </div>
+            <div class="equipment-img-wrapper">
+                <img src="image/materiel2.jpg.png" loading="lazy" decoding="async" alt="Sèche-cheveux et produits de soin professionnels">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="prestations" class="pricing">
+<h2 class="section-title luxury-reveal"><span>La carte</span> Prestations & Tarifs</h2>
+<div class="pricing-grid">
+<div class="price-card luxury-reveal delay-1">
+<h3>Femmes</h3>
+<ul class="price-list">
+<li>Coupe brushing <span>43 €</span></li><li>Brushing <span>33 €</span></li><li>Coupe séchage <span>34 €</span></li><li>Couleur racine (1cm) <span>27 €</span></li><li>Dose supplémentaire <span>8 €</span></li><li>Mèches <span>65 €</span></li>
+</ul>
+</div>
+<div class="price-card luxury-reveal delay-2">
+<h3>Hommes</h3>
+<ul class="price-list">
+<li>Coupe <span>24 €</span></li><li>Coupe + Barbe <span>29 €</span></li><li>Soin détente barbe <span>5 €</span></li>
+</ul>
+</div>
+<div class="price-card luxury-reveal delay-2">
+<h3>Enfants</h3>
+<ul class="price-list">
+<li>Moins de 10 ans <span>16 €</span></li><li>De 10 à 14 ans <span>20 €</span></li>
+</ul>
+</div>
+</div>
+<p class="deplacement-note luxury-reveal">Frais de déplacement inclus</p>
+</section>
+
+<section class="before-after-section">
+<h2 class="section-title luxury-reveal"><span>Transformation</span> Avant / Après</h2>
+<div class="ba-grid luxury-reveal delay-1">
+<div class="ba-item"><img src="image/photo5.jpg.png" loading="lazy" decoding="async" alt="Avant la coupe"><span class="ba-badge">Avant</span></div>
+<div class="ba-item"><img src="image/photo10.jpg.png" loading="lazy" decoding="async" alt="Après la coupe"><span class="ba-badge">Après</span></div>
+</div>
+</section>
+
+<section id="galerie" class="gallery-section">
+<h2 class="section-title luxury-reveal"><span>Portfolio</span> Mes Réalisations</h2>
+<div class="carousel-wrapper luxury-reveal delay-1" id="carousel-gallery">
+<button class="nav-btn prev" aria-label="Précédent"><i class="fas fa-chevron-left"></i></button>
+<div class="carousel-track">
+<div class="carousel-item"><img src="image/photo1.jpg.png" loading="lazy" decoding="async" alt="Coiffure séniors"></div>
+<div class="carousel-item"><img src="image/photo2.jpg.png" loading="lazy" decoding="async" alt="Brushing"></div>
+<div class="carousel-item"><img src="image/photo3.jpg.png" loading="lazy" decoding="async" alt="Coupe homme"></div>
+<div class="carousel-item"><img src="image/photo4.jpg.png" loading="lazy" decoding="async" alt="Coupe homme 2"></div>
+<div class="carousel-item"><img src="image/photo6.jpg.png" loading="lazy" decoding="async" alt="Coupe homme 3"></div>
+<div class="carousel-item"><img src="image/photo7.jpg.png" loading="lazy" decoding="async" alt="Dégradé homme"></div>
+<div class="carousel-item"><img src="image/photo8.jpg.png" loading="lazy" decoding="async" alt="Couleur femme"></div>
+<div class="carousel-item"><img src="image/photo9.jpg.png" loading="lazy" decoding="async" alt="Coupe enfant"></div>
+<div class="carousel-item"><img src="image/photo11.jpg.png" loading="lazy" decoding="async" alt="Réalisation 11"></div>
+<div class="carousel-item"><img src="image/photo12.jpg.png" loading="lazy" decoding="async" alt="Réalisation 12"></div>
+</div>
+<button class="nav-btn next" aria-label="Suivant"><i class="fas fa-chevron-right"></i></button>
+</div>
+</section>
+
+<section id="zone" class="zone">
+<h2 class="section-title luxury-reveal"><span>Déplacements</span> Ma zone d'intervention</h2>
+<p class="zone-subtitle luxury-reveal">Afin de vous garantir ponctualité et flexibilité, j'organise mes rendez-vous par secteur géographique. Je me déplace exclusivement dans les communes suivantes :</p>
+<div class="zone-map-wrapper luxury-reveal"><img src="image/carte.jpg.png" loading="lazy" decoding="async" alt="Carte de la zone d'intervention"></div>
+<div class="zone-cities-modern luxury-reveal delay-1">Vergèze <span>|</span> Codognan <span>|</span> Mus <span>|</span> Uchaud <span>|</span> Vestric-et-Candiac <span>|</span> Bernis <span>|</span> Aimargues <span>|</span> Vauvert <span>|</span> Aigues-Vives</div>
+<div class="zone-hours-box luxury-reveal delay-2">
+<span class="hours-title">Disponibilités à domicile</span>
+<div class="hours-time">Mardis & Vendredis, de 7h à 17h</div>
+<div class="hours-note">(Interventions également possibles en EHPAD et centres de rééducation)</div>
+</div>
+</section>
+
+<section id="contact" class="contact-section">
+<div class="contact-card luxury-reveal">
+<h2 class="section-title"><span>Rendez-vous</span> Contactez-moi</h2>
+<div class="contact-info">
+<p><i class="fas fa-map-marker-alt"></i> Basée à Vergèze (30)</p>
+<p style="margin-top: 10px;">
+<a href="https://www.facebook.com/share/1DL6T6WiW1/?mibextid=wwXIfr" target="_blank" style="margin-right: 15px; font-size: 1.5rem; color: var(--noir);"><i class="fab fa-facebook"></i></a>
+<a href="https://share.google/Mhqo7frRgGvEuOraN" target="_blank" style="font-size: 1.5rem; color: var(--noir);"><i class="fab fa-google"></i></a>
+</p>
+</div>
+<a href="tel:0658301291" class="phone-giant"><i class="fas fa-phone-alt"></i> 06 58 30 12 91</a>
+<form class="contact-form" action="https://formsubmit.co/tiphaine.pro.coiffure@gmail.com" method="POST">
+<p class="form-separator">Ou laissez-moi un message</p>
+<input type="hidden" name="_captcha" value="false"><input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous - Site Web">
+<div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" "><label for="name">Votre nom & prénom</label></div>
+<div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" "><label for="phone">Votre numéro de téléphone</label></div>
+<div class="form-group">
+<select id="city" name="Ville" required>
+<option value="" disabled selected hidden></option>
+<option value="Vergèze">Vergèze</option><option value="Codognan">Codognan</option><option value="Mus">Mus</option><option value="Uchaud">Uchaud</option><option value="Vestric-et-Candiac">Vestric-et-Candiac</option><option value="Bernis">Bernis</option><option value="Aimargues">Aimargues</option><option value="Vauvert">Vauvert</option><option value="Aigues-Vives">Aigues-Vives</option><option value="Hors zone">Je ne suis pas dans ces villes</option>
+</select>
+<label for="city">Votre ville (uniquement si dans la zone)</label>
+</div>
+<div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
+<button type="submit" class="btn" style="width: 100%; margin-top: 10px; background-color: var(--noir); color: var(--blanc);">Envoyer le message</button>
+</form>
+</div>
+</section>
+
+<a href="tel:0658301291" class="floating-call" title="Appeler Tiphaine"><i class="fas fa-phone"></i></a>
+
+<footer>
+<p>&copy; 2024 Tiphaine Guermeur - Tous droits réservés. | SIRET : 538 596 750 000 17</p>
+<p style="margin-top: 15px;"><a onclick="openModal('modal-mentions')">Mentions légales</a> &nbsp;|&nbsp; <a onclick="openModal('modal-confidentialite')">Politique de confidentialité</a></p>
+</footer>
+
+<div id="modal-mentions" class="modal">
+<div class="modal-content">
+<span class="close-modal" onclick="closeModal('modal-mentions')">&times;</span>
+<h2>Mentions Légales</h2>
+<h3>1. Éditeur du site</h3><p>Le site est édité par : <strong>Tiphaine Guermeur</strong><br>Statut : Micro-entreprise<br>SIRET : 538 596 750 000 17<br>Téléphone : 06 58 30 12 91<br>Adresse : Vergèze (30)</p>
+<h3>2. Hébergement</h3><p>Ce site est hébergé par : [Nom de l'hébergeur, ex: OVHcloud]<br>Adresse : [Adresse de l'hébergeur]</p>
+<h3>3. Propriété intellectuelle</h3><p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle.</p>
+</div>
+</div>
+<div id="modal-confidentialite" class="modal">
+<div class="modal-content">
+<span class="close-modal" onclick="closeModal('modal-confidentialite')">&times;</span>
+<h2>Politique de Confidentialité</h2>
+<h3>1. Collecte des données</h3><p>Les données personnelles collectées via le formulaire de contact sont utilisées uniquement dans le but de répondre à vos demandes de rendez-vous.</p>
+<h3>2. Responsable du traitement</h3><p>Le responsable du traitement des données est Tiphaine Guermeur, joignable à l'adresse email : tiphaine.pro.coiffure@gmail.com.</p>
+<h3>3. Vos droits</h3><p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition aux données vous concernant.</p>
+</div>
+</div>
+
+<script>
+document.body.classList.add('js-loaded');
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('nav-links');
+menuToggle.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('active'); }); });
+
+// --- ANIMATION AU SCROLL (Intersection Observer) ---
+const observer = new IntersectionObserver((entries) => { 
+    entries.forEach(entry => { 
+        if (entry.isIntersecting) { 
+            entry.target.classList.add('visible'); 
+            observer.unobserve(entry.target); 
+        } 
+    }); 
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.luxury-reveal').forEach(element => { 
+    observer.observe(element); 
+});
+
+// --- CARROUSEL FLUIDE ---
+function setupCarousel(wrapperId) {
+    const wrapper = document.getElementById(wrapperId);
+    const track = wrapper.querySelector('.carousel-track');
+    const prevBtn = wrapper.querySelector('.prev');
+    const nextBtn = wrapper.querySelector('.next');
+    const scrollAmount = () => {
+        const item = track.firstElementChild;
+        if (!item) return 300;
+        return item.offsetWidth + 30;
+    };
+    nextBtn.addEventListener('click', () => { track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }); });
+    prevBtn.addEventListener('click', () => { track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }); });
+}
+setupCarousel('carousel-gallery');
+
+// --- MODALES ---
+function openModal(modalId) { document.getElementById(modalId).classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); document.body.style.overflow = 'auto'; }
+window.onclick = function(event) { if (event.target.classList.contains('modal')) { event.target.classList.remove('active'); document.body.style.overflow = 'auto'; } }
+
+// --- PREMIUM JS : BARRE DE PROGRESSION, CURSEUR, NAV SCROLL ---
+if (window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progress-bar').style.width = scrolled + '%';
+        
+        const nav = document.getElementById('main-nav');
+        if (winScroll > 50) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
+    });
+
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: "forwards" });
+    });
+
+    const hoverElements = document.querySelectorAll('a, button, .btn, input, select, textarea, .price-card, .equipment-img-wrapper, .carousel-item');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+}
+</script>
+</body>
+</html>
