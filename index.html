@@ -383,47 +383,64 @@ if(window.matchMedia("(pointer: fine)").matches){window.addEventListener('scroll
 </script>
 
 <!-- ============================================================
-     SCRIPT GOOGLE MAPS (VERSION 2026) - FILTRE PAR VILLE ET PAR TEMPS
+     SCRIPT GOOGLE MAPS (VERSION 2026) - LOGIQUE INFAILLIBLE
      ============================================================ -->
 <script>
 const ALLOWED_CITIES = ["Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"];
 const COIFFEUSE_ADDRESS = "Vergèze, France";
 const MAX_DRIVE_TIME_MINUTES = 25;
-let autocompleteElement;
+const API_KEY = 'VOTRE_CLE_API_ICI'; // <--- METTRE LA CLÉ ICI
+
+let selectedPlace = null;
 
 async function initPerimeterCheck() {
     const addressContainer = document.getElementById('address-container');
-    autocompleteElement = new google.maps.places.PlaceAutocompleteElement();
+    const autocompleteElement = new google.maps.places.PlaceAutocompleteElement();
     addressContainer.appendChild(autocompleteElement);
 
+    // Quand le client sélectionne une adresse, on la garde en mémoire
     autocompleteElement.addEventListener('gmp-placeselect', async (event) => {
         const place = event.place;
-        // On récupère les infos nécessaires de l'adresse
         await place.fetchFields({ fields: ['formattedAddress', 'addressComponents'] });
-        checkPerimeter(place);
+        selectedPlace = place;
+        // On cache les anciens messages d'erreur
+        document.getElementById('perimeter-message').style.display = 'none';
     });
 
-    document.getElementById('booking-form').addEventListener('submit', function(e) {
-        if (!addressContainer.dataset.verified) {
-            e.preventDefault();
+    // On bloque l'envoi du formulaire par défaut pour vérifier d'abord
+    document.getElementById('booking-form').addEventListener('submit', async function(e) {
+        e.preventDefault(); 
+
+        const submitBtn = document.getElementById('submit-btn');
+        
+        if (!selectedPlace) {
             showMessage("Veuillez sélectionner votre adresse complète dans la liste déroulante.");
+            return;
+        }
+
+        // On affiche un chargement sur le bouton
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
+        submitBtn.disabled = true;
+
+        // On lance la vérification
+        const isValid = await checkPerimeter(selectedPlace);
+
+        if (isValid) {
+            // Si c'est bon, on envoie vraiment le formulaire
+            this.submit();
+        } else {
+            // Si c'est pas bon, on remet le bouton normal
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
         }
     });
 }
 
 async function checkPerimeter(place) {
-    const perimeterMessage = document.getElementById('perimeter-message');
-    const addressContainer = document.getElementById('address-container');
-    const submitBtn = document.getElementById('submit-btn');
-
-    perimeterMessage.style.display = 'none';
-    addressContainer.dataset.verified = "false";
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '1';
-
     if (!place.formattedAddress || !place.addressComponents) {
         showMessage("Adresse introuvable. Veuillez sélectionner une adresse valide dans la liste.");
-        return;
+        return false;
     }
 
     // 1. VÉRIFICATION DE LA VILLE
@@ -437,9 +454,7 @@ async function checkPerimeter(place) {
 
     if (!ALLOWED_CITIES.includes(city)) {
         showMessage(`Désolée, mon périmètre d'intervention ne couvre pas la ville de ${city}. N'hésitez pas à m'appeler au 06 58 30 12 91 pour plus d'informations.`);
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = '0.5';
-        return;
+        return false;
     }
 
     // 2. VÉRIFICATION DU TEMPS DE TRAJET
@@ -448,12 +463,12 @@ async function checkPerimeter(place) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Goog-Api-Key': 'VOTRE_CLE_API_ICI', // <--- METTRE LA CLÉ ICI AUSSI
+                'X-Goog-Api-Key': API_KEY,
                 'X-Goog-FieldMask': 'originIndex,destinationIndex,duration,status'
             },
             body: JSON.stringify({
-                origins: [{ waypoint: { address: COIFFEUSE_ADDRESS } }], // Format corrigé ici
-                destinations: [{ waypoint: { address: place.formattedAddress } }], // Et ici
+                origins: [{ waypoint: { address: COIFFEUSE_ADDRESS } }],
+                destinations: [{ waypoint: { address: place.formattedAddress } }],
                 travelMode: 'DRIVE'
             })
         });
@@ -465,19 +480,19 @@ async function checkPerimeter(place) {
             const durationMinutes = Math.ceil(durationSeconds / 60);
 
             if (durationMinutes <= MAX_DRIVE_TIME_MINUTES) {
-                addressContainer.dataset.verified = "true";
-                perimeterMessage.style.display = 'none';
+                return true; // C'est bon !
             } else {
                 showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} minutes). N'hésitez pas à m'appeler au 06 58 30 12 91 pour en discuter.`);
-                submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.5';
+                return false;
             }
         } else {
             showMessage("Impossible de calculer l'itinéraire depuis cette adresse. Veuillez vérifier votre saisie.");
+            return false;
         }
     } catch (error) {
         console.error("Erreur API:", error);
         showMessage("Impossible de vérifier votre adresse pour le moment. Veuillez réessayer ou m'appeler.");
+        return false;
     }
 }
 
@@ -488,7 +503,7 @@ function showMessage(text) {
 }
 </script>
 
-<!-- CHARGEMENT DE GOOGLE MAPS AVEC LA NOUVELLE BIBLIOTHÈQUE -->
+<!-- CHARGEMENT DE GOOGLE MAPS -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw&libraries=places&callback=initPerimeterCheck" async defer></script>
 
 </body>
