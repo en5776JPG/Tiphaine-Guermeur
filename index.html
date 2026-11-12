@@ -355,7 +355,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 </p>
 </div>
 <a href="tel:0658301291" class="phone-giant"><i class="fas fa-phone-alt"></i> 06 58 30 12 91</a>
-<form class="contact-form" id="booking-form" action="https://formsubmit.co/tiphaine.pro.coiffure@gmail.com" method="POST">
+<form class="contact-form" id="booking-form" action="https://formsubmit.co/ajax/tiphaine.guermeur.coiffure.pro@gmail.com" method="POST">
 <p class="form-separator">Ou laissez-moi un message</p>
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous - Site Web">
@@ -390,7 +390,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <span class="close-modal" onclick="closeModal('modal-confidentialite')">&times;</span>
 <h2>Politique de Confidentialité</h2>
 <h3>1. Collecte des données</h3><p>Les données personnelles collectées via le formulaire de contact sont utilisées uniquement dans le but de répondre à vos demandes de rendez-vous.</p>
-<h3>2. Responsable du traitement</h3><p>Le responsable du traitement des données est Tiphaine Guermeur, joignable à l'adresse email : tiphaine.pro.coiffure@gmail.com.</p>
+<h3>2. Responsable du traitement</h3><p>Le responsable du traitement des données est Tiphaine Guermeur, joignable à l'adresse email : tiphaine.guermeur.coiffure.pro@gmail.com.</p>
 <h3>3. Vos droits</h3><p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition aux données vous concernant.</p>
 </div>
 </div>
@@ -411,7 +411,7 @@ if(window.matchMedia("(pointer: fine)").matches){window.addEventListener('scroll
 </script>
 
 <!-- ============================================================
-     SCRIPT GOOGLE MAPS (MÉTHODE CLASSIQUE, ROBUSTE ET INFAILLIBLE)
+     SCRIPT GOOGLE MAPS & ENVOI AJAX DU FORMULAIRE
      ============================================================ -->
 <script>
 const ALLOWED_CITIES = ["Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"];
@@ -426,6 +426,7 @@ function initPerimeterCheck() {
     const addressInput = document.getElementById('address');
     const submitBtn = document.getElementById('submit-btn');
     const perimeterMessage = document.getElementById('perimeter-message');
+    const bookingForm = document.getElementById('booking-form');
 
     autocomplete = new google.maps.places.Autocomplete(addressInput, {
         types: ['address'],
@@ -510,16 +511,65 @@ function initPerimeterCheck() {
         }
     });
 
-    document.getElementById('booking-form').addEventListener('submit', function(e) {
+    // --- ENVOI AJAX DU FORMULAIRE ---
+    bookingForm.addEventListener('submit', async function(e) {
+        e.preventDefault(); // On bloque l'envoi classique
+
         if (addressInput.dataset.verified !== "true") {
-            e.preventDefault();
             showMessage("Veuillez sélectionner votre adresse complète dans la liste déroulante pour que nous puissions vérifier que vous êtes dans notre zone d'intervention.");
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+
+        const formData = new FormData(bookingForm);
+
+        try {
+            const response = await fetch(bookingForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                // Succès : on affiche un message vert et on réinitialise
+                perimeterMessage.classList.remove('show'); // On cache l'erreur si elle était là
+                perimeterMessage.style.backgroundColor = '#F0FDF4';
+                perimeterMessage.style.borderColor = '#4ADE80';
+                perimeterMessage.style.color = '#166534';
+                perimeterMessage.innerHTML = '<i class="fas fa-check-circle" style="color: #16A34A;"></i> <span>Votre demande a bien été envoyée ! Tiphaine vous recontactera très vite.</span>';
+                perimeterMessage.classList.add('show');
+                
+                bookingForm.reset();
+                submitBtn.innerHTML = 'Message envoyé !';
+                submitBtn.style.backgroundColor = 'var(--gris-moyen)';
+            } else {
+                // Erreur renvoyée par FormSubmit
+                showMessage("Une erreur est survenue. Veuillez réessayer ou m'appeler.");
+                submitBtn.disabled = false;
+                submitBtn.style.backgroundColor = 'var(--noir)';
+                submitBtn.innerHTML = 'Envoyer le message';
+            }
+        } catch (error) {
+            console.error(error);
+            showMessage("Impossible d'envoyer le message. Veuillez vérifier votre connexion ou m'appeler.");
+            submitBtn.disabled = false;
+            submitBtn.style.backgroundColor = 'var(--noir)';
+            submitBtn.innerHTML = 'Envoyer le message';
         }
     });
 }
 
 function showMessage(text) {
     const perimeterMessage = document.getElementById('perimeter-message');
+    // On remet les couleurs rouges par défaut pour les erreurs
+    perimeterMessage.style.backgroundColor = '#FEF2F2';
+    perimeterMessage.style.borderColor = '#F87171';
+    perimeterMessage.style.color = '#991B1B';
     perimeterMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> <span>${text}</span>`;
     perimeterMessage.classList.add('show');
 }
