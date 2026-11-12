@@ -337,7 +337,6 @@ gmp-place-autocomplete{width:100%;--gmp-color-background:#fafafa;--gmp-color-on-
 <div id="address-container"></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
-<!-- Bouton désactivé par défaut -->
 <button type="submit" class="btn" id="submit-btn" disabled style="width: 100%; margin-top: 10px; background-color: var(--noir); color: var(--blanc);">Veuillez sélectionner une adresse</button>
 </form>
 </div>
@@ -398,14 +397,21 @@ let selectedPlace = null;
 async function initPerimeterCheck() {
     const addressContainer = document.getElementById('address-container');
     const submitBtn = document.getElementById('submit-btn');
-    
-    // On crée le champ de saisie Google
-    const autocompleteElement = new google.maps.places.PlaceAutocompleteElement();
+
+    // 1. Importation des bibliothèques nécessaires (Places et Routes)
+    const { PlaceAutocompleteElement } = await google.maps.importLibrary("places");
+    const { RouteMatrix } = await google.maps.importLibrary("routes");
+
+    // 2. Création du champ de saisie avec la nouvelle API
+    const autocompleteElement = new PlaceAutocompleteElement();
     addressContainer.appendChild(autocompleteElement);
 
-    // Dès que l'utilisateur sélectionne une adresse
-    autocompleteElement.addEventListener('gmp-placeselect', async (event) => {
-        const place = event.place;
+    // 3. Écoute du nouvel événement "gmp-select" (remplace gmp-placeselect)
+    autocompleteElement.addEventListener('gmp-select', async (event) => {
+        const placePrediction = event.placePrediction;
+        const place = placePrediction.toPlace();
+        
+        // On récupère les infos nécessaires
         await place.fetchFields({ fields: ['formattedAddress', 'addressComponents'] });
         
         selectedPlace = place;
@@ -413,8 +419,8 @@ async function initPerimeterCheck() {
         submitBtn.disabled = true;
         document.getElementById('perimeter-message').style.display = 'none';
 
-        // On lance la vérification de suite
-        const isValid = await checkPerimeter(place);
+        // On lance la vérification
+        const isValid = await checkPerimeter(place, RouteMatrix);
 
         if (isValid) {
             submitBtn.innerHTML = 'Envoyer le message';
@@ -426,7 +432,7 @@ async function initPerimeterCheck() {
         }
     });
 
-    // Si l'utilisateur modifie le texte manuellement, on bloque à nouveau par sécurité
+    // Si l'utilisateur modifie le texte manuellement, on bloque par sécurité
     autocompleteElement.addEventListener('input', () => {
         if (selectedPlace) {
             selectedPlace = null;
@@ -435,15 +441,9 @@ async function initPerimeterCheck() {
             document.getElementById('perimeter-message').style.display = 'none';
         }
     });
-
-    // Au moment de l'envoi du formulaire
-    document.getElementById('booking-form').addEventListener('submit', function(e) {
-        // Si on arrive ici, c'est que le bouton était activé (donc adresse valide).
-        // On laisse FormSubmit faire son travail.
-    });
 }
 
-async function checkPerimeter(place) {
+async function checkPerimeter(place, RouteMatrix) {
     if (!place.formattedAddress || !place.addressComponents) {
         showMessage("Adresse introuvable. Veuillez réessayer.");
         return false;
@@ -463,38 +463,43 @@ async function checkPerimeter(place) {
         return false;
     }
 
-    // 2. VÉRIFICATION DU TEMPS DE TRAJET
+    // 2. VÉRIFICATION DU TEMPS DE TRAJET avec la nouvelle RouteMatrix API
     try {
-        const response = await fetch('https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Goog-Api-Key': API_KEY,
-                'X-Goog-FieldMask': 'originIndex,destinationIndex,duration,status'
-            },
-            body: JSON.stringify({
-                origins: [{ waypoint: { address: COIFFEUSE_ADDRESS } }],
-                destinations: [{ waypoint: { address: place.formattedAddress } }],
-                travelMode: 'DRIVE'
-            })
-        });
+        const request = {
+            origins: [{ waypoint: { address: COIFFEUSE_ADDRESS } }],
+            destinations: [{ waypoint: { address: place.formattedAddress } }],
+            travelMode: 'DRIVE',
+            fields: ['durationMillis', 'condition'],
+            routingPreference: 'TRAFFIC_AWARE'
+        };
 
-        const data = await response.json();
+        const response = await RouteMatrix.computeRouteMatrix(request);
         
-        if (data && data.length > 0 && data[0].status && data[0].status.code === 0) {
-            const durationSeconds = parseInt(data[0].duration.replace('s', ''));
-            const durationMinutes = Math.ceil(durationSeconds / 60);
+        // La réponse est maintenant un objet avec une propriété "matrix"
+        const matrix = response.matrix;
+        
+        if (matrix && matrix.rows && matrix.rows.length > 0) {
+            const items = matrix.rows[0].items;
+            if (items && items.length > 0) {
+                const item = items[0];
+                if (item.condition === 'ROUTE_EXISTS') {
+                    const durationMinutes = Math.ceil(parseInt(item.durationMillis) / 60000);
 
-            if (durationMinutes <= MAX_DRIVE_TIME_MINUTES) {
-                return true; // C'est bon !
-            } else {
-                showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} min). Appelez-moi au 06 58 30 12 91.`);
-                return false;
+                    if (durationMinutes <= MAX_DRIVE_TIME_MINUTES) {
+                        return true; // C'est bon !
+                    } else {
+                        showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} min). Appelez-moi au 06 58 30 12 91.`);
+                        return false;
+                    }
+                } else {
+                    showMessage("Impossible de calculer l'itinéraire depuis cette adresse. Veuillez vérifier votre saisie.");
+                    return false;
+                }
             }
-        } else {
-            showMessage("Impossible de calculer l'itinéraire. Veuillez vérifier votre saisie.");
-            return false;
         }
+        showMessage("Impossible de vérifier votre adresse pour le moment.");
+        return false;
+
     } catch (error) {
         console.error("Erreur API:", error);
         showMessage("Impossible de vérifier votre adresse. Veuillez m'appeler directement.");
@@ -509,8 +514,13 @@ function showMessage(text) {
 }
 </script>
 
-<!-- CHARGEMENT DE GOOGLE MAPS -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw&libraries=places&callback=initPerimeterCheck&loading=async" async defer></script>
+<!-- CHARGEMENT DE GOOGLE MAPS avec les nouvelles bibliothèques -->
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw", // <--- METTRE LA CLÉ ICI AUSSI
+    v: "weekly",
+  });
+</script>
 
 </body>
 </html>
