@@ -28,7 +28,7 @@
     --font-texte:'Montserrat',sans-serif;
     --transition-luxe: cubic-bezier(0.25, 1, 0.5, 1);
 }
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
 html{scroll-behavior:smooth}
 body{
     font-family:var(--font-texte);
@@ -41,6 +41,7 @@ body{
 }
 h1,h2,h3{font-family:var(--font-titre);color:var(--noir);line-height:1.1;font-weight:400}
 a{text-decoration:none;color:inherit}
+img { pointer-events: none; } /* Empêche les bugs de sélection sur mobile */
 
 /* =========================================
    BARRE DE PROGRESSION
@@ -84,7 +85,7 @@ a{text-decoration:none;color:inherit}
     display:inline-flex; align-items:center; justify-content:center;
     padding:18px 40px; background-color:var(--noir); color:var(--blanc);
     font-weight:500; font-size:13px; letter-spacing:2px; text-transform:uppercase;
-    transition: all 0.5s var(--transition-luxe); border:1px solid var(--noir);
+    transition: all 0.4s var(--transition-luxe); border:1px solid var(--noir);
     position:relative; overflow:hidden; z-index:1;
 }
 .btn::before {
@@ -98,6 +99,9 @@ a{text-decoration:none;color:inherit}
     transform:translateY(-3px); box-shadow:0 15px 25px rgba(197, 168, 128, 0.15);
     border-color: var(--or);
 }
+/* Effet au toucher sur mobile */
+.btn:active { transform: scale(0.98); }
+
 .btn-outline{background-color:transparent; color:var(--noir); border:1px solid var(--noir);}
 .btn-outline:hover {
     background-color:var(--noir); color:var(--blanc);
@@ -151,14 +155,13 @@ nav.scrolled .logo img {height: 45px; width: 45px;}
 .menu-toggle{display:none; font-size:24px; cursor:pointer; color:var(--noir); z-index: 1005;}
 
 /* =========================================
-   HERO SECTION (Optimisé Mobile)
+   HERO SECTION
    ========================================= */
 .hero {
-    /* Utilisation de 100dvh pour éviter les bugs de hauteur sur mobile */
     height: 100dvh; min-height: 600px; display: flex; justify-content: center; align-items: center;
     background-color: var(--creme); margin-top: 80px; position: relative; overflow: hidden;
     background-image: radial-gradient(circle at center, #ffffff 0%, #f4f2ed 100%);
-    padding-top: 60px; /* Espace pour ne pas cacher le sceau sous le menu */
+    padding-top: 40px;
 }
 .hero-bg-circle {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -211,14 +214,12 @@ nav.scrolled .logo img {height: 45px; width: 45px;}
 .hero h1 .main-title {font-weight: 700; text-transform: uppercase;}
 .hero h1 .italic-title {font-style: italic; font-weight: 400; color: var(--gris-moyen); margin-top: 10px; letter-spacing: -1px;}
 
-/* Suppression du bloc gris sur mobile pour plus d'élégance */
 .hero p {
     font-size: clamp(1rem, 2vw, 1.15rem); color: var(--gris-fonce);
     max-width: 650px; margin: 0 auto 40px auto; font-weight: 400; line-height: 1.7;
 }
 .hero-actions {display: flex; justify-content: center; gap: 15px;}
 
-/* Cascade Animations */
 .cascade-1 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.2s;}
 .cascade-2 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.4s;}
 .cascade-3 {animation: slideUpFade 1.4s var(--transition-luxe) forwards; opacity: 0; transform: translateY(30px); animation-delay: 0.6s;}
@@ -434,14 +435,8 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
     position:fixed; bottom:20px; right:20px; background-color:var(--noir); color:var(--blanc);
     width:60px; height:60px; border-radius:50%; display:flex; justify-content:center; align-items:center;
     font-size:22px; box-shadow:0 10px 25px rgba(0,0,0,.3); z-index:2000; transition:all 0.4s var(--transition-luxe);
-    animation: pulseBtn 2s infinite;
 }
-@keyframes pulseBtn {
-    0% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(197, 168, 128, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(197, 168, 128, 0); }
-}
-.floating-call:hover{transform:scale(1.1); background-color: var(--or); animation: none;}
+.floating-call:hover{transform:scale(1.1); background-color: var(--or);}
 
 /* =========================================
    ANIMATIONS AU SCROLL & MODALES
@@ -465,7 +460,7 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
 .modal-content p{margin-bottom:15px; font-size:.9rem; color:var(--gris-fonce); font-weight:400;}
 
 /* =========================================
-   RESPONSIVE & OPTIMISATION MOBILE (Le vrai travail)
+   RESPONSIVE & OPTIMISATION MOBILE EXPERT
    ========================================= */
 @media (max-width: 1024px) {
     .hero-v-text-left, .hero-v-text-right {display: none;}
@@ -481,6 +476,8 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
     .carousel-item{flex:0 0 75%; height:350px; border-radius:100px 100px 0 0;}
     .equipment-grid {grid-template-columns: 1fr;}
 }
+
+/* --- LE VRAI TRAVAIL MOBILE (768px et moins) --- */
 @media (max-width: 768px) {
     /* Bandeau défilant plus fin */
     .top-banner{padding: 8px 0; font-size: 0.65rem;}
@@ -490,12 +487,11 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
     .logo img{height:40px; width:40px;}
     .logo-text{font-size:18px;}
     
-    /* Menu plein écran premium */
+    /* MENU PLEIN ÉCRAN (Style Luxe) */
     .menu-toggle{display:block;}
     .nav-links {
         position: fixed; top: 0; left: 0; width: 100%; height: 100dvh;
-        background-color: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
+        background-color: var(--blanc); /* Fond blanc pur, pas de transparence */
         flex-direction: column; justify-content: center; align-items: center;
         gap: 30px; transition: all 0.5s var(--transition-luxe);
         opacity: 0; pointer-events: none; z-index: 1002;
@@ -516,35 +512,43 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
     .nav-links.active ~ .menu-toggle i::before { content: "\f00d"; }
     .menu-toggle { z-index: 1003; position: relative; padding: 5px;}
 
-    /* --- CORRECTION DU HERO POUR MOBILE --- */
+    /* HERO SUR MESURE MOBILE */
     .hero {
         height: auto; min-height: calc(100dvh - 100px); 
-        margin-top: 90px; /* Ajusté pour ne pas cacher le logo */
-        padding: 40px 5% 60px 5%;
-        justify-content: flex-start; /* Remonte le contenu */
+        margin-top: 80px; 
+        padding: 30px 5% 50px 5%;
+        justify-content: flex-start;
     }
-    .hero-seal {width: 75px; height: 75px; margin-bottom: 20px;}
+    /* On cache les cercles animés sur mobile pour la performance */
+    .hero-bg-circle { display: none; } 
+    
+    .hero-seal {width: 70px; height: 70px; margin-bottom: 20px;}
     .hero-badge {font-size: 0.7rem; letter-spacing: 3px; margin-bottom: 15px;}
     .hero-badge::before, .hero-badge::after {width: 15px;}
     
-    .hero h1 {font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 20px;}
+    .hero h1 {font-size: 2.6rem; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.05;}
     .hero h1 .italic-title {margin-top: 5px;}
     
     .hero p {
         font-size: 0.95rem; 
-        background-color: transparent; /* On enlève le bloc gris */
+        background-color: transparent;
         padding: 0;
         margin-bottom: 30px;
+        line-height: 1.8;
     }
     .hero-actions {flex-direction: column; gap: 12px; width: 100%; max-width: 280px;}
-    .btn {padding: 16px 20px; font-size: 12px;} /* Boutons plus fins */
+    .btn {padding: 16px 20px; font-size: 12px;}
+    .btn:active { transform: scale(0.96); } /* Effet tactile */
     
     /* Ajustements globaux */
     section{padding:70px 0;}
     .section-title{font-size:2.2rem; margin-bottom: 30px;}
     
     .ba-item{width: 100%; max-width: 320px; height: 380px; border-radius: 150px 150px 0 0;}
-    .carousel-item{height:320px;}
+    
+    /* Carrousel Mobile (Effet Peek) */
+    .carousel-wrapper { padding: 0 15px; } /* On réduit le padding pour laisser voir l'image suivante */
+    .carousel-item{flex: 0 0 85%; height:320px;} 
     
     .price-card{padding:30px 20px;}
     .price-card:hover {transform: none; box-shadow:0 15px 35px rgba(0,0,0,.05);}
@@ -555,13 +559,18 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
     .zone-cities-modern{font-size:.8rem; line-height:2.2;}
     .zone-hours-box{padding:15px; width:100%;}
     
-    /* Bouton d'appel flottant bas de gamme, on le rend plus premium */
+    /* Formulaire Contact */
+    .contact-card { padding: 30px 20px; }
+    .form-group input, .form-group textarea, .form-group select { font-size: 1rem; padding-top: 20px; }
+    
+    /* Bouton d'appel flottant (plus fin, style pilule) */
     .floating-call{
         bottom:15px; right:15px; left:15px; width:auto; height:55px; border-radius:30px; 
         font-size:15px; text-transform:uppercase; font-weight:600; letter-spacing:1px; 
-        animation: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     }
     .floating-call::after{content:" Appeler Tiphaine"; margin-left:10px;}
+    .floating-call:hover { transform: none; background-color: var(--noir); } /* Désactive le hover sur mobile */
     
     .modal-content{padding:30px 20px;}
     .cursor-dot, .cursor-outline {display: none !important;}
@@ -574,7 +583,6 @@ footer a:hover{color:var(--blanc); border-color:var(--blanc);}
 <div class="cursor-dot"></div>
 <div class="cursor-outline"></div>
 
-<!-- BANDEAU DÉFILANT PREMIUM -->
 <div class="top-banner">
     <div class="marquee-content">
         <span>Interventions à domicile</span> • Vergèze • Codognan • Mus • Uchaud • Vestric-et-Candiac • Bernis • Aimargues • Vauvert • Aigues-Vives • 
@@ -815,7 +823,7 @@ function setupCarousel(wrapperId) {
     const scrollAmount = () => {
         const item = track.firstElementChild;
         if (!item) return 300;
-        return item.offsetWidth + 20; // Gap de 20px
+        return item.offsetWidth + 20;
     };
     nextBtn.addEventListener('click', () => { track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }); });
     prevBtn.addEventListener('click', () => { track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }); });
