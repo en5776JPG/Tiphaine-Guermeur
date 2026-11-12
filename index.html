@@ -24,7 +24,7 @@ img{pointer-events:none}
 .btn:hover::before{left:100%}
 .btn:hover{background-color:transparent;color:var(--noir);transform:translateY(-3px);box-shadow:0 15px 25px rgba(197,168,128,.15);border-color:var(--or)}
 .btn:active{transform:scale(.98)}
-.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none;background-color:var(--noir);color:var(--blanc)}
+.btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:none;background-color:var(--gris-moyen);color:var(--blanc);border-color:var(--gris-moyen)}
 .btn-outline{background-color:transparent;color:var(--noir);border:1px solid var(--noir)}
 .btn-outline:hover{background-color:var(--noir);color:var(--blanc);transform:translateY(-3px);box-shadow:0 15px 25px rgba(0,0,0,.1)}
 .btn i{margin-right:10px;font-size:14px}
@@ -155,6 +155,12 @@ section{padding:100px 0}
 .form-group select{appearance:none;background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a880%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");background-repeat:no-repeat;background-position:right 15px top 50%;background-size:12px auto;cursor:pointer}
 ::placeholder{color:transparent!important}
 #perimeter-message{display:none;margin-top:15px;padding:15px;background-color:#fdf2f2;border-left:4px solid #dc2626;color:#991b1b;font-size:.9rem;line-height:1.5;border-radius:4px}
+/* Styles spécifiques pour l'autocomplétion Google */
+.pac-container { font-family: var(--font-texte) !important; border-radius: 0 !important; border: 1px solid #ccc !important; box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; margin-top: 5px; }
+.pac-item { padding: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; }
+.pac-item:hover { background-color: #f0f0f0 !important; }
+.pac-item-query { font-weight: 600 !important; color: var(--noir) !important; }
+.pac-matched { color: var(--or) !important; font-weight: 700 !important; }
 footer{background-color:var(--noir);color:#888;text-align:center;padding:50px 20px;font-size:.8rem;font-weight:400}
 footer a{color:#888;text-decoration:none;border-bottom:1px solid #888;cursor:pointer;transition:color .3s}
 footer a:hover{color:var(--blanc);border-color:var(--blanc)}
@@ -172,8 +178,6 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 .modal-content h2{margin-bottom:20px;font-size:1.6rem}
 .modal-content h3{margin:20px 0 10px 0;font-size:1rem;font-family:var(--font-texte);font-weight:600}
 .modal-content p{margin-bottom:15px;font-size:.9rem;color:var(--gris-fonce);font-weight:400}
-#address-container{margin-bottom:25px;width:100%}
-gmp-place-autocomplete{width:100%;--gmp-color-background:#fafafa;--gmp-color-on-background:#2a2a2a;--gmp-color-primary:#c5a880;border-radius:0;border:1px solid #ccc;font-family:var(--font-texte)}
 @media (max-width:1024px){.hero-v-text-left,.hero-v-text-right{display:none}.hero h1{font-size:clamp(3rem,10vw,5rem)}.about-img-wrapper::before{display:none}.about-text{padding-left:0;text-align:center}}
 @media (max-width:900px){.about{flex-direction:column;gap:30px}.contact-card{padding:30px 20px}.phone-giant{font-size:2rem}.ba-item{height:400px}.carousel-item{flex:0 0 75%;height:350px;border-radius:100px 100px 0 0}.equipment-grid{grid-template-columns:1fr}}
 @media (max-width:768px){.top-banner{padding:8px 0;font-size:.65rem}.marquee-content span{margin:0 15px}nav{top:32px;padding:10px 5%}.logo img{height:40px;width:40px}.logo-text{font-size:18px}.menu-toggle{display:block}.nav-links{position:fixed;top:0;left:0;width:100%;height:100dvh;background-color:var(--blanc);flex-direction:column;justify-content:center;align-items:center;gap:30px;transition:all .5s var(--transition-luxe);opacity:0;pointer-events:none;z-index:1002}.nav-links.active{opacity:1;pointer-events:all}.nav-links a{font-size:22px;font-family:var(--font-titre);letter-spacing:2px;transform:translateY(20px);opacity:0;transition:all .5s var(--transition-luxe)}.nav-links.active a{transform:translateY(0);opacity:1}.nav-links.active a:nth-child(1){transition-delay:.1s}.nav-links.active a:nth-child(2){transition-delay:.15s}.nav-links.active a:nth-child(3){transition-delay:.2s}.nav-links.active a:nth-child(4){transition-delay:.25s}.nav-links.active a:nth-child(5){transition-delay:.3s}.nav-links.active a:nth-child(6){transition-delay:.35s}.nav-links.active~.menu-toggle i::before{content:"\f00d"}.menu-toggle{z-index:1003;position:relative;padding:5px}.hero{height:auto;min-height:calc(100dvh - 100px);margin-top:80px;padding:30px 5% 50px 5%;justify-content:flex-start}.hero-bg-circle{display:none}.hero-seal{width:70px;height:70px;margin-bottom:20px}.hero-badge{font-size:.7rem;letter-spacing:3px;margin-bottom:15px}.hero-badge::before,.hero-badge::after{width:15px}.hero h1{font-size:2.6rem;letter-spacing:-1px;margin-bottom:20px;line-height:1.05}.hero h1 .italic-title{margin-top:5px}.hero p{font-size:.95rem;background-color:transparent;padding:0;margin-bottom:30px;line-height:1.8}.hero-actions{flex-direction:column;gap:12px;width:100%;max-width:280px}.btn{padding:16px 20px;font-size:12px}.btn:active{transform:scale(.96)}section{padding:70px 0}.section-title{font-size:2.2rem;margin-bottom:30px}.ba-item{width:100%;max-width:320px;height:380px;border-radius:150px 150px 0 0}.carousel-wrapper{padding:0 15px}.carousel-item{flex:0 0 85%;height:320px}.price-card{padding:30px 20px}.price-card:hover{transform:none;box-shadow:0 15px 35px rgba(0,0,0,.05)}.price-list li{padding:10px 0;font-size:.95rem}.price-list span{font-size:1.2rem}.zone{padding:70px 5%}.zone-cities-modern{font-size:.8rem;line-height:2.2}.zone-hours-box{padding:15px;width:100%}.contact-card{padding:30px 20px}.form-group input,.form-group textarea,.form-group select{font-size:1rem;padding-top:20px}.floating-call{bottom:15px;right:15px;left:15px;width:auto;height:55px;border-radius:30px;font-size:15px;text-transform:uppercase;font-weight:600;letter-spacing:1px;box-shadow:0 10px 30px rgba(0,0,0,.25)}.floating-call::after{content:" Appeler Tiphaine";margin-left:10px}.floating-call:hover{transform:none;background-color:var(--noir)}.modal-content{padding:30px 20px}.cursor-dot,.cursor-outline{display:none!important}}
@@ -334,10 +338,10 @@ gmp-place-autocomplete{width:100%;--gmp-color-background:#fafafa;--gmp-color-on-
 <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous - Site Web">
 <div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" "><label for="name">Votre nom & prénom</label></div>
 <div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" "><label for="phone">Votre numéro de téléphone</label></div>
-<div id="address-container"></div>
+<div class="form-group"><input type="text" id="address" name="Adresse" required placeholder=" " autocomplete="off"><label for="address">Votre adresse complète (ex: 12 rue des Lilas)</label></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
-<button type="submit" class="btn" id="submit-btn" disabled style="width: 100%; margin-top: 10px; background-color: var(--noir); color: var(--blanc);">Veuillez sélectionner une adresse</button>
+<button type="submit" class="btn" id="submit-btn" disabled style="width: 100%; margin-top: 10px; background-color: var(--gris-moyen); color: var(--blanc);">Veuillez sélectionner une adresse</button>
 </form>
 </div>
 </section>
@@ -384,7 +388,7 @@ if(window.matchMedia("(pointer: fine)").matches){window.addEventListener('scroll
 </script>
 
 <!-- ============================================================
-     SCRIPT GOOGLE MAPS (VERSION 2026) - LOGIQUE DE BLOCAGE STRICTE
+     SCRIPT GOOGLE MAPS (MÉTHODE CLASSIQUE, ROBUSTE ET INFAILLIBLE)
      ============================================================ -->
 <script>
 const ALLOWED_CITIES = ["Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"];
@@ -392,119 +396,103 @@ const COIFFEUSE_ADDRESS = "Vergèze, France";
 const MAX_DRIVE_TIME_MINUTES = 25;
 const API_KEY = 'AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw'; // <--- METTRE LA CLÉ ICI
 
-let selectedPlace = null;
+let autocomplete;
+let distanceMatrixService;
 
-async function initPerimeterCheck() {
-    const addressContainer = document.getElementById('address-container');
+function initPerimeterCheck() {
+    const addressInput = document.getElementById('address');
     const submitBtn = document.getElementById('submit-btn');
+    const perimeterMessage = document.getElementById('perimeter-message');
 
-    // 1. Importation des bibliothèques nécessaires (Places et Routes)
-    const { PlaceAutocompleteElement } = await google.maps.importLibrary("places");
-    const { RouteMatrix } = await google.maps.importLibrary("routes");
+    autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        types: ['address'],
+        componentRestrictions: { country: 'fr' }
+    });
 
-    // 2. Création du champ de saisie avec la nouvelle API
-    const autocompleteElement = new PlaceAutocompleteElement();
-    addressContainer.appendChild(autocompleteElement);
+    distanceMatrixService = new google.maps.DistanceMatrixService();
 
-    // 3. Écoute du nouvel événement "gmp-select" (remplace gmp-placeselect)
-    autocompleteElement.addEventListener('gmp-select', async (event) => {
-        const placePrediction = event.placePrediction;
-        const place = placePrediction.toPlace();
+    autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
         
-        // On récupère les infos nécessaires
-        await place.fetchFields({ fields: ['formattedAddress', 'addressComponents'] });
-        
-        selectedPlace = place;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
+        perimeterMessage.style.display = 'none';
         submitBtn.disabled = true;
-        document.getElementById('perimeter-message').style.display = 'none';
+        submitBtn.style.backgroundColor = 'var(--gris-moyen)';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
+        addressInput.dataset.verified = "false";
 
-        // On lance la vérification
-        const isValid = await checkPerimeter(place, RouteMatrix);
-
-        if (isValid) {
-            submitBtn.innerHTML = 'Envoyer le message';
-            submitBtn.disabled = false;
-        } else {
-            submitBtn.innerHTML = 'Hors périmètre - Appelez-moi';
-            submitBtn.disabled = true;
-            selectedPlace = null; // On réinitialise
-        }
-    });
-
-    // Si l'utilisateur modifie le texte manuellement, on bloque par sécurité
-    autocompleteElement.addEventListener('input', () => {
-        if (selectedPlace) {
-            selectedPlace = null;
+        if (!place.geometry || !place.address_components) {
+            showMessage("Adresse introuvable. Veuillez sélectionner une adresse dans la liste.");
             submitBtn.innerHTML = 'Veuillez sélectionner une adresse';
-            submitBtn.disabled = true;
-            document.getElementById('perimeter-message').style.display = 'none';
+            return;
         }
-    });
-}
 
-async function checkPerimeter(place, RouteMatrix) {
-    if (!place.formattedAddress || !place.addressComponents) {
-        showMessage("Adresse introuvable. Veuillez réessayer.");
-        return false;
-    }
-
-    // 1. VÉRIFICATION DE LA VILLE
-    let city = "";
-    for (let component of place.addressComponents) {
-        if (component.types.includes("locality") || component.types.includes("postal_town")) {
-            city = component.longText;
-            break;
-        }
-    }
-
-    if (!ALLOWED_CITIES.includes(city)) {
-        showMessage(`Désolée, mon périmètre d'intervention ne couvre pas la ville de ${city}. N'hésitez pas à m'appeler au 06 58 30 12 91.`);
-        return false;
-    }
-
-    // 2. VÉRIFICATION DU TEMPS DE TRAJET avec la nouvelle RouteMatrix API
-    try {
-        const request = {
-            origins: [{ waypoint: { address: COIFFEUSE_ADDRESS } }],
-            destinations: [{ waypoint: { address: place.formattedAddress } }],
-            travelMode: 'DRIVE',
-            fields: ['durationMillis', 'condition'],
-            routingPreference: 'TRAFFIC_AWARE'
-        };
-
-        const response = await RouteMatrix.computeRouteMatrix(request);
-        
-        // La réponse est maintenant un objet avec une propriété "matrix"
-        const matrix = response.matrix;
-        
-        if (matrix && matrix.rows && matrix.rows.length > 0) {
-            const items = matrix.rows[0].items;
-            if (items && items.length > 0) {
-                const item = items[0];
-                if (item.condition === 'ROUTE_EXISTS') {
-                    const durationMinutes = Math.ceil(parseInt(item.durationMillis) / 60000);
-
-                    if (durationMinutes <= MAX_DRIVE_TIME_MINUTES) {
-                        return true; // C'est bon !
-                    } else {
-                        showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} min). Appelez-moi au 06 58 30 12 91.`);
-                        return false;
-                    }
-                } else {
-                    showMessage("Impossible de calculer l'itinéraire depuis cette adresse. Veuillez vérifier votre saisie.");
-                    return false;
-                }
+        let city = "";
+        for (let component of place.address_components) {
+            if (component.types.includes("locality") || component.types.includes("postal_town")) {
+                city = component.long_name;
+                break;
             }
         }
-        showMessage("Impossible de vérifier votre adresse pour le moment.");
-        return false;
 
-    } catch (error) {
-        console.error("Erreur API:", error);
-        showMessage("Impossible de vérifier votre adresse. Veuillez m'appeler directement.");
-        return false;
-    }
+        if (!ALLOWED_CITIES.includes(city)) {
+            showMessage(`Désolée, mon périmètre d'intervention ne couvre pas la ville de ${city}. N'hésitez pas à m'appeler au 06 58 30 12 91.`);
+            submitBtn.innerHTML = 'Hors périmètre - Appelez-moi';
+            return;
+        }
+
+        distanceMatrixService.getDistanceMatrix({
+            origins: [COIFFEUSE_ADDRESS],
+            destinations: [place.formatted_address],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            drivingOptions: {
+                departureTime: new Date(Date.now() + 1000 * 60 * 60),
+                trafficModel: google.maps.TrafficModel.PESSIMISTIC
+            }
+        }, function(response, status) {
+            if (status !== 'OK') {
+                showMessage("Impossible de vérifier votre adresse pour le moment. Veuillez réessayer ou m'appeler.");
+                submitBtn.innerHTML = 'Erreur - Appelez-moi';
+                return;
+            }
+
+            const result = response.rows[0].elements[0];
+            if (result.status === 'OK') {
+                const durationMinutes = Math.ceil(result.duration.value / 60);
+                
+                if (durationMinutes <= MAX_DRIVE_TIME_MINUTES) {
+                    addressInput.dataset.verified = "true";
+                    perimeterMessage.style.display = 'none';
+                    submitBtn.disabled = false;
+                    submitBtn.style.backgroundColor = 'var(--noir)';
+                    submitBtn.innerHTML = 'Envoyer le message';
+                } else {
+                    showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} min). Appelez-moi au 06 58 30 12 91.`);
+                    submitBtn.innerHTML = 'Hors périmètre - Appelez-moi';
+                }
+            } else {
+                showMessage("Impossible de calculer l'itinéraire depuis cette adresse. Veuillez vérifier votre saisie.");
+                submitBtn.innerHTML = 'Adresse invalide';
+            }
+        });
+    });
+
+    addressInput.addEventListener('input', function() {
+        if (addressInput.dataset.verified === "true") {
+            addressInput.dataset.verified = "false";
+            submitBtn.disabled = true;
+            submitBtn.style.backgroundColor = 'var(--gris-moyen)';
+            submitBtn.innerHTML = 'Veuillez sélectionner une adresse';
+            perimeterMessage.style.display = 'none';
+        }
+    });
+
+    document.getElementById('booking-form').addEventListener('submit', function(e) {
+        if (addressInput.dataset.verified !== "true") {
+            e.preventDefault();
+            showMessage("Veuillez sélectionner votre adresse complète dans la liste déroulante pour que nous puissions vérifier que vous êtes dans notre zone d'intervention.");
+        }
+    });
 }
 
 function showMessage(text) {
@@ -514,13 +502,8 @@ function showMessage(text) {
 }
 </script>
 
-<!-- CHARGEMENT DE GOOGLE MAPS avec les nouvelles bibliothèques -->
-<script>
-  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-    key: "AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw", // <--- METTRE LA CLÉ ICI AUSSI
-    v: "weekly",
-  });
-</script>
+<!-- CHARGEMENT DE GOOGLE MAPS -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw&libraries=places&callback=initPerimeterCheck" async defer></script>
 
 </body>
 </html>
