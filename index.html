@@ -155,7 +155,7 @@ section{padding:100px 0}
 .form-group select{appearance:none;background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a880%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");background-repeat:no-repeat;background-position:right 15px top 50%;background-size:12px auto;cursor:pointer}
 ::placeholder{color:transparent!important}
 #perimeter-message{display:none;margin-top:15px;padding:15px;background-color:#fdf2f2;border-left:4px solid #dc2626;color:#991b1b;font-size:.9rem;line-height:1.5;border-radius:4px}
-/* Styles spécifiques pour l'autocomplétion Google */
+/* Styles spécifiques pour l'autocomplétion Google (Rendu Premium) */
 .pac-container { font-family: var(--font-texte) !important; border-radius: 0 !important; border: 1px solid #ccc !important; box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; margin-top: 5px; }
 .pac-item { padding: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; }
 .pac-item:hover { background-color: #f0f0f0 !important; }
@@ -338,6 +338,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous - Site Web">
 <div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" "><label for="name">Votre nom & prénom</label></div>
 <div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" "><label for="phone">Votre numéro de téléphone</label></div>
+<!-- LE CHAMP ADRESSE EST BIEN LA, EN HTML STANDARD -->
 <div class="form-group"><input type="text" id="address" name="Adresse" required placeholder=" " autocomplete="off"><label for="address">Votre adresse complète (ex: 12 rue des Lilas)</label></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
