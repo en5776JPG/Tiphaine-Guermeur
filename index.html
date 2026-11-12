@@ -24,6 +24,7 @@ img{pointer-events:none}
 .btn:hover::before{left:100%}
 .btn:hover{background-color:transparent;color:var(--noir);transform:translateY(-3px);box-shadow:0 15px 25px rgba(197,168,128,.15);border-color:var(--or)}
 .btn:active{transform:scale(.98)}
+.btn:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none;background-color:var(--noir);color:var(--blanc)}
 .btn-outline{background-color:transparent;color:var(--noir);border:1px solid var(--noir)}
 .btn-outline:hover{background-color:var(--noir);color:var(--blanc);transform:translateY(-3px);box-shadow:0 15px 25px rgba(0,0,0,.1)}
 .btn i{margin-right:10px;font-size:14px}
@@ -336,7 +337,8 @@ gmp-place-autocomplete{width:100%;--gmp-color-background:#fafafa;--gmp-color-on-
 <div id="address-container"></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
-<button type="submit" class="btn" id="submit-btn" style="width: 100%; margin-top: 10px; background-color: var(--noir); color: var(--blanc);">Envoyer le message</button>
+<!-- Bouton désactivé par défaut -->
+<button type="submit" class="btn" id="submit-btn" disabled style="width: 100%; margin-top: 10px; background-color: var(--noir); color: var(--blanc);">Veuillez sélectionner une adresse</button>
 </form>
 </div>
 </section>
@@ -383,63 +385,67 @@ if(window.matchMedia("(pointer: fine)").matches){window.addEventListener('scroll
 </script>
 
 <!-- ============================================================
-     SCRIPT GOOGLE MAPS (VERSION 2026) - LOGIQUE INFAILLIBLE
+     SCRIPT GOOGLE MAPS (VERSION 2026) - LOGIQUE DE BLOCAGE STRICTE
      ============================================================ -->
 <script>
 const ALLOWED_CITIES = ["Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"];
 const COIFFEUSE_ADDRESS = "Vergèze, France";
 const MAX_DRIVE_TIME_MINUTES = 25;
-const API_KEY = 'VOTRE_CLE_API_ICI'; // <--- METTRE LA CLÉ ICI
+const API_KEY = 'AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw'; // <--- METTRE LA CLÉ ICI
 
 let selectedPlace = null;
 
 async function initPerimeterCheck() {
     const addressContainer = document.getElementById('address-container');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    // On crée le champ de saisie Google
     const autocompleteElement = new google.maps.places.PlaceAutocompleteElement();
     addressContainer.appendChild(autocompleteElement);
 
-    // Quand le client sélectionne une adresse, on la garde en mémoire
+    // Dès que l'utilisateur sélectionne une adresse
     autocompleteElement.addEventListener('gmp-placeselect', async (event) => {
         const place = event.place;
         await place.fetchFields({ fields: ['formattedAddress', 'addressComponents'] });
-        selectedPlace = place;
-        // On cache les anciens messages d'erreur
-        document.getElementById('perimeter-message').style.display = 'none';
-    });
-
-    // On bloque l'envoi du formulaire par défaut pour vérifier d'abord
-    document.getElementById('booking-form').addEventListener('submit', async function(e) {
-        e.preventDefault(); 
-
-        const submitBtn = document.getElementById('submit-btn');
         
-        if (!selectedPlace) {
-            showMessage("Veuillez sélectionner votre adresse complète dans la liste déroulante.");
-            return;
-        }
-
-        // On affiche un chargement sur le bouton
-        const originalText = submitBtn.innerHTML;
+        selectedPlace = place;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
         submitBtn.disabled = true;
+        document.getElementById('perimeter-message').style.display = 'none';
 
-        // On lance la vérification
-        const isValid = await checkPerimeter(selectedPlace);
+        // On lance la vérification de suite
+        const isValid = await checkPerimeter(place);
 
         if (isValid) {
-            // Si c'est bon, on envoie vraiment le formulaire
-            this.submit();
-        } else {
-            // Si c'est pas bon, on remet le bouton normal
-            submitBtn.innerHTML = originalText;
+            submitBtn.innerHTML = 'Envoyer le message';
             submitBtn.disabled = false;
+        } else {
+            submitBtn.innerHTML = 'Hors périmètre - Appelez-moi';
+            submitBtn.disabled = true;
+            selectedPlace = null; // On réinitialise
         }
+    });
+
+    // Si l'utilisateur modifie le texte manuellement, on bloque à nouveau par sécurité
+    autocompleteElement.addEventListener('input', () => {
+        if (selectedPlace) {
+            selectedPlace = null;
+            submitBtn.innerHTML = 'Veuillez sélectionner une adresse';
+            submitBtn.disabled = true;
+            document.getElementById('perimeter-message').style.display = 'none';
+        }
+    });
+
+    // Au moment de l'envoi du formulaire
+    document.getElementById('booking-form').addEventListener('submit', function(e) {
+        // Si on arrive ici, c'est que le bouton était activé (donc adresse valide).
+        // On laisse FormSubmit faire son travail.
     });
 }
 
 async function checkPerimeter(place) {
     if (!place.formattedAddress || !place.addressComponents) {
-        showMessage("Adresse introuvable. Veuillez sélectionner une adresse valide dans la liste.");
+        showMessage("Adresse introuvable. Veuillez réessayer.");
         return false;
     }
 
@@ -453,7 +459,7 @@ async function checkPerimeter(place) {
     }
 
     if (!ALLOWED_CITIES.includes(city)) {
-        showMessage(`Désolée, mon périmètre d'intervention ne couvre pas la ville de ${city}. N'hésitez pas à m'appeler au 06 58 30 12 91 pour plus d'informations.`);
+        showMessage(`Désolée, mon périmètre d'intervention ne couvre pas la ville de ${city}. N'hésitez pas à m'appeler au 06 58 30 12 91.`);
         return false;
     }
 
@@ -482,16 +488,16 @@ async function checkPerimeter(place) {
             if (durationMinutes <= MAX_DRIVE_TIME_MINUTES) {
                 return true; // C'est bon !
             } else {
-                showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} minutes). N'hésitez pas à m'appeler au 06 58 30 12 91 pour en discuter.`);
+                showMessage(`Désolée, votre adresse se situe à environ ${durationMinutes} minutes de route (au-delà de mon périmètre de ${MAX_DRIVE_TIME_MINUTES} min). Appelez-moi au 06 58 30 12 91.`);
                 return false;
             }
         } else {
-            showMessage("Impossible de calculer l'itinéraire depuis cette adresse. Veuillez vérifier votre saisie.");
+            showMessage("Impossible de calculer l'itinéraire. Veuillez vérifier votre saisie.");
             return false;
         }
     } catch (error) {
         console.error("Erreur API:", error);
-        showMessage("Impossible de vérifier votre adresse pour le moment. Veuillez réessayer ou m'appeler.");
+        showMessage("Impossible de vérifier votre adresse. Veuillez m'appeler directement.");
         return false;
     }
 }
@@ -504,7 +510,7 @@ function showMessage(text) {
 </script>
 
 <!-- CHARGEMENT DE GOOGLE MAPS -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw&libraries=places&callback=initPerimeterCheck" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw&libraries=places&callback=initPerimeterCheck&loading=async" async defer></script>
 
 </body>
 </html>
