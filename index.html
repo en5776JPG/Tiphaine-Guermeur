@@ -76,8 +76,8 @@ section{padding:100px 0}
 .about-img-wrapper{flex:1;position:relative;padding:15px}
 .about-img-wrapper::before{content:'';position:absolute;top:0;left:0;width:90%;height:90%;border:2px solid var(--or);z-index:0;transition:all .5s var(--transition-luxe)}
 .about-img-wrapper:hover::before{top:-10px;left:-10px}
-.about-img{width:100%;height:auto;display:block;position:relative;z-index:1;box-shadow:0 20px 50px rgba(0,0,0,.12);transition:transform .8s var(--transition-luxe),filter .8s;filter:grayscale(20%)}
-.about-img-wrapper:hover .about-img{transform:scale(1.02);filter:grayscale(0%)}
+.about-img{width:100%;height:auto;display:block;position:relative;z-index:1;box-shadow:0 20px 50px rgba(0,0,0,.12);transition:transform .8s var(--transition-luxe),filter .8s;filter:brightness(1.02)}
+.about-img-wrapper:hover .about-img{transform:scale(1.02);filter:brightness(1.05)}
 .about-text{flex:1.2;padding-left:20px}
 .about-text h2{font-size:2.5rem;margin-bottom:20px}
 .about-text p{margin-bottom:20px;font-size:1rem;color:var(--gris-fonce);font-weight:400;text-align:left}
@@ -91,8 +91,9 @@ section{padding:100px 0}
 .equipment-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .equipment-img-wrapper{position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.1);border:6px solid var(--blanc);background-color:var(--blanc);transition:transform .6s var(--transition-luxe)}
 .equipment-img-wrapper:hover{transform:translateY(-5px);box-shadow:0 30px 50px rgba(0,0,0,.15)}
-.equipment-img-wrapper img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--transition-luxe),filter .8s;aspect-ratio:4/3;filter:grayscale(20%)}
-.equipment-img-wrapper:hover img{transform:scale(1.05);filter:grayscale(0%)}
+/* FILTRE LUMINOSITE ET COULEUR AMELIORE POUR LE MATERIEL */
+.equipment-img-wrapper img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--transition-luxe),filter .8s;aspect-ratio:4/3;filter:brightness(1.08) contrast(1.05) saturate(1.1)}
+.equipment-img-wrapper:hover img{transform:scale(1.05);filter:brightness(1.12) contrast(1.08) saturate(1.15)}
 .pricing{background-color:var(--sable);padding:100px 5%}
 .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;max-width:1100px;margin:0 auto}
 .price-card{background:var(--blanc);padding:40px 30px;box-shadow:0 15px 35px rgba(0,0,0,.05);position:relative;border-top:4px solid var(--or);transition:transform .4s var(--transition-luxe),box-shadow .4s var(--transition-luxe)}
@@ -272,8 +273,8 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
         </div>
         <div class="equipment-grid luxury-reveal delay-1">
             <div class="equipment-img-wrapper">
-                <!-- NOUVELLE IMAGE MATERIEL 3 ICI -->
-                <img src="image/materiel3.jpg.png" loading="lazy" decoding="async" alt="Matériel professionnel de coiffure">
+                <!-- IMAGE MATERIEL ORIGINALE RESTAUREE -->
+                <img src="image/materiel.jpg.png" loading="lazy" decoding="async" alt="Matériel professionnel de coiffure">
             </div>
             <div class="equipment-img-wrapper">
                 <img src="image/materiel2.jpg.png" loading="lazy" decoding="async" alt="Sèche-cheveux et produits de soin professionnels">
