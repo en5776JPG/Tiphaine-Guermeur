@@ -63,18 +63,20 @@ nav.scrolled .logo img{height:45px;width:45px}
 .nav-links a:hover{color:var(--noir)}
 .menu-toggle{display:none;font-size:24px;cursor:pointer;color:var(--noir);z-index:1005}
 
-/* Section Hero (Correction de la coupure PC) */
+/* Section Hero (Correction totale des coupures PC) */
 .hero{
-    min-height: calc(100dvh - 116px); /* Prend en compte la nav et la bannière */
-    margin-top: 116px; /* Pousse le contenu sous la nav */
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--creme);
     position: relative;
     overflow: hidden;
     background-image: radial-gradient(circle at center,#ffffff 0%,#f4f2ed 100%);
-    padding: 60px 20px; /* Ajoute de l'espace en haut et en bas pour ne jamais couper */
+    /* Le padding-top de 140px pousse le contenu sous la barre de nav, le padding-bottom évite la coupure des boutons */
+    padding: 140px 20px 80px 20px; 
+    box-sizing: border-box;
 }
 .hero-bg-circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:0}
 .circle-1{width:85vw;max-width:850px;aspect-ratio:1/1;border:1px solid rgba(197,168,128,.2);animation:pulseSlow 10s infinite alternate ease-in-out}
@@ -154,9 +156,9 @@ section{padding:100px 0}
 .ba-item img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .8s var(--transition-luxe)}
 .ba-item:hover img{transform:scale(1.08)}
 
-/* DÉZOOM SPÉCIFIQUE POUR LE NOUVEAU BLOC AVANT/APRÈS */
-.new-ba .ba-item img { transform: scale(0.92) !important; }
-.new-ba .ba-item:hover img { transform: scale(0.98) !important; }
+/* DÉZOOM ACCENTUÉ POUR LE NOUVEAU BLOC AVANT/APRÈS */
+.new-ba .ba-item img { transform: scale(0.88) !important; }
+.new-ba .ba-item:hover img { transform: scale(0.94) !important; }
 
 .ba-badge{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);background-color:rgba(255,255,255,.95);color:var(--noir);padding:6px 25px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;box-shadow:0 5px 15px rgba(0,0,0,.15);border:1px solid #ddd;z-index:2}
 
@@ -181,8 +183,8 @@ section{padding:100px 0}
 .zone .section-title span{color:var(--or)}
 .zone-subtitle{max-width:600px;margin:0 auto 40px auto;color:#ccc;font-size:1rem;font-weight:400;text-align:center}
 
-/* CARTE RÉTRÉCIE (600px au lieu de 800px) */
-.zone-map-wrapper{max-width:600px;margin:0 auto 40px auto;box-shadow:0 15px 40px rgba(0,0,0,.6);overflow:hidden;border-radius:6px;}
+/* CARTE ENCORE PLUS PETITE (450px) */
+.zone-map-wrapper{max-width:450px;margin:0 auto 40px auto;box-shadow:0 15px 40px rgba(0,0,0,.6);overflow:hidden;border-radius:6px;}
 .zone-map-wrapper img{width:100%;height:auto;display:block;transition:transform .8s var(--transition-luxe)}
 .zone-map-wrapper:hover img{transform:scale(1.03)}
 
@@ -296,9 +298,8 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
     
     /* Ajustement du Hero sur mobile */
     .hero{
-        min-height: calc(100dvh - 80px);
-        margin-top: 80px;
-        padding: 40px 5% 60px 5%;
+        min-height: 100dvh;
+        padding: 120px 5% 60px 5%;
         justify-content: center;
     }
     .hero-bg-circle{display:none}
@@ -316,7 +317,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
     .section-title{font-size:2.2rem;margin-bottom:30px}
     
     .ba-item{width:100%;max-width:320px;height:380px;border-radius:150px 150px 0 0}
-    .new-ba .ba-item img { transform: scale(0.95) !important; }
+    .new-ba .ba-item img { transform: scale(0.92) !important; }
     .carousel-wrapper{padding:0 15px}
     .carousel-item{flex:0 0 85%;height:320px}
     
@@ -328,7 +329,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
     .zone{padding:70px 5%}
     .zone-cities-modern{font-size:.8rem;line-height:2.2}
     .zone-hours-box{padding:15px;width:100%}
-    .zone-map-wrapper{max-width:100%;} /* Carte prend toute la largeur dispo sur mobile */
+    .zone-map-wrapper{max-width:100%;} 
     
     .contact-card{padding:30px 20px}
     .form-group input,.form-group textarea,.form-group select{font-size:1rem;padding-top:24px}
@@ -566,7 +567,7 @@ if(window.matchMedia("(pointer: fine)").matches){window.addEventListener('scroll
 const ALLOWED_CITIES = ["Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"];
 const COIFFEUSE_ADDRESS = "Vergèze, France";
 const MAX_DRIVE_TIME_MINUTES = 25;
-const API_KEY = 'VAIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw'; // <--- METTRE LA CLÉ ICI (1er emplacement)
+const API_KEY = 'AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw'; // <--- METTRE LA CLÉ ICI (1er emplacement)
 
 let autocomplete;
 let distanceMatrixService;
@@ -727,7 +728,7 @@ function showMessage(text) {
 </script>
 
 <!-- CHARGEMENT DE GOOGLE MAPS -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pwI&libraries=places&callback=initPerimeterCheck" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw&libraries=places&callback=initPerimeterCheck" async defer></script>
 
 </body>
 </html>
