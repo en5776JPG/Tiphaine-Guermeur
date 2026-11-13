@@ -19,7 +19,7 @@ a{text-decoration:none;color:inherit}
 img{pointer-events:none}
 #progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--or);width:0%;z-index:9999;transition:width .1s}
 @media (pointer:fine){body,a,button,input,select,textarea{cursor:none!important}.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;background-color:var(--or);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .2s,height .2s}.cursor-outline{position:fixed;top:0;left:0;width:40px;height:40px;border:1px solid var(--or);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s,background-color .3s;transition-timing-function:var(--transition-luxe)}.cursor-hover .cursor-dot{width:12px;height:12px}.cursor-hover .cursor-outline{width:60px;height:60px;border-color:rgba(197,168,128,.5);background-color:rgba(197,168,128,.05)}}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:18px 40px;background-color:var(--noir);color:var(--blanc);font-weight:500;font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:all .4s var(--transition-luxe);border:1px solid var(--noir);position:relative;overflow:hidden;z-index:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:18px 40px;background-color:var(--noir);color:var(--blanc);font-weight:500;font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:all .4s var(--transition-luxe);border:1px solid var(--noir);position:relative;overflow:hidden;z-index:1;white-space:nowrap}
 .btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(197,168,128,.4),transparent);transition:left .7s var(--transition-luxe);z-index:-1}
 .btn:hover::before{left:100%}
 .btn:hover{background-color:transparent;color:var(--noir);transform:translateY(-3px);box-shadow:0 15px 25px rgba(197,168,128,.15);border-color:var(--or)}
@@ -53,24 +53,24 @@ nav.scrolled .logo img{height:45px;width:45px}
 .hero-v-text-left,.hero-v-text-right{position:absolute;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:.75rem;text-transform:uppercase;letter-spacing:10px;font-weight:600;color:var(--or);white-space:nowrap;z-index:1}
 .hero-v-text-left{left:-130px}
 .hero-v-text-right{right:-130px;transform:translateY(-50%) rotate(90deg)}
-.hero-content{position:relative;z-index:2;text-align:center;max-width:1000px;padding:0 20px;display:flex;flex-direction:column;align-items:center}
-.hero-seal{width:90px;height:90px;border-radius:50%;border:1px solid var(--or);padding:5px;margin-bottom:25px;background-color:var(--creme);box-shadow:0 10px 30px rgba(0,0,0,.05);position:relative}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:1000px;width:100%;padding:0 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero-seal{width:90px;height:90px;border-radius:50%;border:1px solid var(--or);padding:5px;margin:0 auto 25px auto;background-color:var(--creme);box-shadow:0 10px 30px rgba(0,0,0,.05);position:relative}
 .hero-seal::after{content:'';position:absolute;top:-6px;left:-6px;right:-6px;bottom:-6px;border:1px solid rgba(197,168,128,.3);border-radius:50%}
 .hero-seal img{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.hero-badge{display:inline-flex;align-items:center;gap:15px;font-family:var(--font-texte);font-size:.8rem;text-transform:uppercase;letter-spacing:5px;color:var(--noir);margin-bottom:15px;font-weight:600}
+.hero-badge{display:inline-flex;align-items:center;justify-content:center;gap:15px;font-family:var(--font-texte);font-size:.8rem;text-transform:uppercase;letter-spacing:5px;color:var(--noir);margin-bottom:15px;font-weight:600}
 .hero-badge::before,.hero-badge::after{content:'';width:30px;height:1px;background-color:var(--or)}
-.hero h1{font-size:clamp(3rem,8vw,7rem);margin-bottom:25px;line-height:.95;color:var(--noir);letter-spacing:-2px;display:flex;flex-direction:column;align-items:center}
+.hero h1{font-size:clamp(3rem,8vw,7rem);margin-bottom:25px;line-height:.95;color:var(--noir);letter-spacing:-2px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .hero h1 .main-title{font-weight:700;text-transform:uppercase}
 .hero h1 .italic-title{font-style:italic;font-weight:400;color:var(--gris-moyen);margin-top:10px;letter-spacing:-1px}
-.hero p{font-size:clamp(1rem,2vw,1.15rem);color:var(--gris-fonce);max-width:650px;margin:0 auto 40px auto;font-weight:400;line-height:1.7}
-.hero-actions{display:flex;justify-content:center;gap:15px}
+.hero p{font-size:clamp(1rem,2vw,1.15rem);color:var(--gris-fonce);max-width:650px;margin:0 auto 40px auto;font-weight:400;line-height:1.7;text-align:center}
+.hero-actions{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;width:100%}
 .cascade-1{animation:slideUpFade 1.4s var(--transition-luxe) forwards;opacity:0;transform:translateY(30px);animation-delay:.2s}
 .cascade-2{animation:slideUpFade 1.4s var(--transition-luxe) forwards;opacity:0;transform:translateY(30px);animation-delay:.4s}
 .cascade-3{animation:slideUpFade 1.4s var(--transition-luxe) forwards;opacity:0;transform:translateY(30px);animation-delay:.6s}
 .cascade-4{animation:slideUpFade 1.4s var(--transition-luxe) forwards;opacity:0;transform:translateY(30px);animation-delay:.8s}
 @keyframes slideUpFade{to{opacity:1;transform:translateY(0)}}
 section{padding:100px 0}
-.section-title{text-align:center;font-size:2.8rem;margin-bottom:40px}
+.section-title{text-align:center;font-size:2.8rem;margin-bottom:40px;line-height:1.2}
 .section-title span{display:block;font-family:var(--font-texte);font-size:12px;text-transform:uppercase;letter-spacing:4px;color:var(--or);margin-bottom:15px;font-weight:600}
 .about{display:flex;align-items:center;gap:8%;max-width:1100px;margin:0 auto;padding:0 5%;background-color:var(--blanc)}
 .about-img-wrapper{flex:1;position:relative;padding:15px}
@@ -80,13 +80,13 @@ section{padding:100px 0}
 .about-img-wrapper:hover .about-img{transform:scale(1.02);filter:grayscale(0%)}
 .about-text{flex:1.2;padding-left:20px}
 .about-text h2{font-size:2.5rem;margin-bottom:20px}
-.about-text p{margin-bottom:20px;font-size:1rem;color:var(--gris-fonce);font-weight:400}
-.about-text .signature{font-family:var(--font-titre);font-style:italic;font-size:1.8rem;color:var(--noir);margin-top:30px}
+.about-text p{margin-bottom:20px;font-size:1rem;color:var(--gris-fonce);font-weight:400;text-align:left}
+.about-text .signature{font-family:var(--font-titre);font-style:italic;font-size:1.8rem;color:var(--noir);margin-top:30px;text-align:left}
 .equipment-section{background-color:var(--sable-clair);padding:100px 5%}
 .equipment-container{max-width:1100px;margin:0 auto;text-align:center}
 .equipment-header{margin-bottom:50px}
 .equipment-header h2{font-size:2.5rem;margin-bottom:20px}
-.equipment-header p{max-width:700px;margin:0 auto 20px auto;font-size:1rem;color:var(--gris-fonce);font-weight:400}
+.equipment-header p{max-width:700px;margin:0 auto 20px auto;font-size:1rem;color:var(--gris-fonce);font-weight:400;text-align:center}
 .equipment-header .highlight{color:var(--or);font-weight:600}
 .equipment-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .equipment-img-wrapper{position:relative;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.1);border:6px solid var(--blanc);background-color:var(--blanc);transition:transform .6s var(--transition-luxe)}
@@ -105,7 +105,7 @@ section{padding:100px 0}
 .price-list span{font-weight:600;color:var(--noir);font-family:var(--font-titre);font-size:1.4rem}
 .deplacement-note{text-align:center;margin-top:30px;font-size:.85rem;color:var(--gris-fonce);text-transform:uppercase;letter-spacing:2px;font-weight:500}
 .before-after-section{background-color:var(--blanc);padding:100px 0 80px 0;text-align:center}
-.ba-grid{display:flex;justify-content:center;gap:30px;max-width:1000px;margin:0 auto;flex-wrap:wrap;padding:0 5%}
+.ba-grid{display:flex;justify-content:center;gap:30px;max-width:1000px;margin:0 auto 50px auto;flex-wrap:wrap;padding:0 5%}
 .ba-item{position:relative;width:calc(50% - 15px);max-width:380px;height:450px;border-radius:200px 200px 0 0;overflow:hidden;background-color:#fff;box-shadow:0 20px 40px rgba(0,0,0,.1);border:5px solid var(--blanc);transition:transform .6s var(--transition-luxe),box-shadow .6s}
 .ba-item:hover{transform:translateY(-8px);box-shadow:0 30px 50px rgba(0,0,0,.15)}
 .ba-item img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform .8s var(--transition-luxe)}
@@ -127,34 +127,35 @@ section{padding:100px 0}
 .zone{background-color:var(--gris-zone);color:var(--blanc);text-align:center;padding:100px 5%;border-top:1px solid rgba(197,168,128,.3)}
 .zone .section-title{color:var(--blanc)}
 .zone .section-title span{color:var(--or)}
-.zone-subtitle{max-width:600px;margin:0 auto 40px auto;color:#ccc;font-size:1rem;font-weight:400}
+.zone-subtitle{max-width:600px;margin:0 auto 40px auto;color:#ccc;font-size:1rem;font-weight:400;text-align:center}
 .zone-map-wrapper{max-width:800px;margin:0 auto 40px auto;box-shadow:0 15px 40px rgba(0,0,0,.6);overflow:hidden}
 .zone-map-wrapper img{width:100%;height:auto;display:block;transition:transform .8s var(--transition-luxe)}
 .zone-map-wrapper:hover img{transform:scale(1.03)}
-.zone-cities-modern{font-family:var(--font-texte);font-size:.9rem;font-weight:400;color:var(--blanc);text-transform:uppercase;letter-spacing:2px;line-height:2.5;margin-bottom:30px}
+.zone-cities-modern{font-family:var(--font-texte);font-size:.9rem;font-weight:400;color:var(--blanc);text-transform:uppercase;letter-spacing:2px;line-height:2.5;margin-bottom:30px;text-align:center}
 .zone-cities-modern span{color:#777;margin:0 8px}
-.zone-hours-box{display:inline-block;border:1px solid #444;padding:20px 30px;background-color:#1a1a1a;transition:border-color .4s}
+.zone-hours-box{display:inline-block;border:1px solid #444;padding:20px 30px;background-color:#1a1a1a;transition:border-color .4s;text-align:center}
 .zone-hours-box:hover{border-color:var(--or)}
 .zone-hours-box .hours-title{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--or);margin-bottom:8px;display:block;font-weight:600}
 .zone-hours-box .hours-time{font-family:var(--font-titre);font-size:1.5rem;color:var(--blanc);font-weight:400}
-.zone-hours-box .hours-note{margin-top:10px;font-size:.75rem;color:#777;letter-spacing:1px;text-transform:uppercase}
+.zone-hours-box .hours-phone-info{margin-top:15px;padding-top:15px;border-top:1px solid #333;font-size:.85rem;color:#ccc;text-align:center;}
+.zone-hours-box .hours-phone-info i{color:var(--or);margin-right:5px;}
 .contact-section{background-color:var(--sable);padding:100px 5%;display:flex;justify-content:center}
 .contact-card{background-color:var(--blanc);padding:50px 40px;width:100%;max-width:800px;box-shadow:0 25px 60px rgba(0,0,0,.1);text-align:center;border-top:5px solid var(--or)}
 .contact-card .section-title{margin-bottom:25px}
-.contact-info{margin-bottom:30px;font-size:1rem;color:var(--gris-fonce)}
-.phone-giant{display:inline-block;font-size:2.5rem;font-weight:500;color:var(--noir);margin:10px 0 30px 0;font-family:var(--font-titre);transition:transform .3s}
+.contact-info{margin-bottom:30px;font-size:1rem;color:var(--gris-fonce);text-align:center}
+.phone-giant{display:inline-block;font-size:2.5rem;font-weight:500;color:var(--noir);margin:10px 0 30px 0;font-family:var(--font-titre);transition:transform .3s;text-align:center}
 .phone-giant:hover{transform:scale(1.03)}
 .phone-giant i{margin-right:10px;font-size:2rem;color:var(--or)}
 .contact-form{display:flex;flex-direction:column;gap:25px;text-align:left}
 .form-separator{text-align:center;margin-bottom:10px;font-weight:500;color:var(--gris-moyen);font-size:11px;letter-spacing:2px;text-transform:uppercase}
 .form-group{position:relative}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:18px 16px 10px 16px;font-size:.95rem;border:1px solid #ccc;font-family:var(--font-texte);background-color:#fafafa;transition:all .4s var(--transition-luxe);font-weight:400;color:var(--noir);border-radius:0}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:22px 16px 10px 16px;font-size:.95rem;border:1px solid #ccc;font-family:var(--font-texte);background-color:#fafafa;transition:all .4s var(--transition-luxe);font-weight:400;color:var(--noir);border-radius:0}
 .form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--or);background-color:var(--blanc);box-shadow:0 0 0 3px rgba(197,168,128,.15)}
-.form-group label{position:absolute;top:14px;left:16px;font-weight:500;font-size:.95rem;color:#999;pointer-events:none;transition:.4s var(--transition-luxe) all}
-.form-group input:focus~label,.form-group input:not(:placeholder-shown)~label,.form-group textarea:focus~label,.form-group textarea:not(:placeholder-shown)~label,.form-group select:focus~label,.form-group select:not([value=""])~label{top:5px;font-size:.65rem;color:var(--or);font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.form-group label{position:absolute;top:16px;left:16px;font-weight:500;font-size:.95rem;color:#999;pointer-events:none;transition:.4s var(--transition-luxe) all}
+.form-group input:focus~label,.form-group input:not(:placeholder-shown)~label,.form-group textarea:focus~label,.form-group textarea:not(:placeholder-shown)~label,.form-group select:focus~label,.form-group select:not([value=""])~label{top:6px;font-size:.65rem;color:var(--or);font-weight:600;text-transform:uppercase;letter-spacing:1px}
 .form-group select{appearance:none;background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23c5a880%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");background-repeat:no-repeat;background-position:right 15px top 50%;background-size:12px auto;cursor:pointer}
 ::placeholder{color:transparent!important}
-/* NOUVEAU MESSAGE D'ERREUR PREMIUM */
+/* MESSAGE D'ERREUR / SUCCES PREMIUM */
 #perimeter-message{
     display: none;
     margin-top: 20px;
@@ -169,6 +170,7 @@ section{padding:100px 0}
     gap: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+    text-align: left;
 }
 #perimeter-message i {
     font-size: 1.2rem;
@@ -200,10 +202,10 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 .close-modal:hover{color:var(--noir)}
 .modal-content h2{margin-bottom:20px;font-size:1.6rem}
 .modal-content h3{margin:20px 0 10px 0;font-size:1rem;font-family:var(--font-texte);font-weight:600}
-.modal-content p{margin-bottom:15px;font-size:.9rem;color:var(--gris-fonce);font-weight:400}
-@media (max-width:1024px){.hero-v-text-left,.hero-v-text-right{display:none}.hero h1{font-size:clamp(3rem,10vw,5rem)}.about-img-wrapper::before{display:none}.about-text{padding-left:0;text-align:center}}
+.modal-content p{margin-bottom:15px;font-size:.9rem;color:var(--gris-fonce);font-weight:400;text-align:left}
+@media (max-width:1024px){.hero-v-text-left,.hero-v-text-right{display:none}.hero h1{font-size:clamp(3rem,10vw,5rem)}.about-img-wrapper::before{display:none}.about-text{padding-left:0;text-align:center}.about-text p, .about-text .signature{text-align:center}}
 @media (max-width:900px){.about{flex-direction:column;gap:30px}.contact-card{padding:30px 20px}.phone-giant{font-size:2rem}.ba-item{height:400px}.carousel-item{flex:0 0 75%;height:350px;border-radius:100px 100px 0 0}.equipment-grid{grid-template-columns:1fr}}
-@media (max-width:768px){.top-banner{padding:8px 0;font-size:.65rem}.marquee-content span{margin:0 15px}nav{top:32px;padding:10px 5%}.logo img{height:40px;width:40px}.logo-text{font-size:18px}.menu-toggle{display:block}.nav-links{position:fixed;top:0;left:0;width:100%;height:100dvh;background-color:var(--blanc);flex-direction:column;justify-content:center;align-items:center;gap:30px;transition:all .5s var(--transition-luxe);opacity:0;pointer-events:none;z-index:1002}.nav-links.active{opacity:1;pointer-events:all}.nav-links a{font-size:22px;font-family:var(--font-titre);letter-spacing:2px;transform:translateY(20px);opacity:0;transition:all .5s var(--transition-luxe)}.nav-links.active a{transform:translateY(0);opacity:1}.nav-links.active a:nth-child(1){transition-delay:.1s}.nav-links.active a:nth-child(2){transition-delay:.15s}.nav-links.active a:nth-child(3){transition-delay:.2s}.nav-links.active a:nth-child(4){transition-delay:.25s}.nav-links.active a:nth-child(5){transition-delay:.3s}.nav-links.active a:nth-child(6){transition-delay:.35s}.nav-links.active~.menu-toggle i::before{content:"\f00d"}.menu-toggle{z-index:1003;position:relative;padding:5px}.hero{height:auto;min-height:calc(100dvh - 100px);margin-top:80px;padding:30px 5% 50px 5%;justify-content:flex-start}.hero-bg-circle{display:none}.hero-seal{width:70px;height:70px;margin-bottom:20px}.hero-badge{font-size:.7rem;letter-spacing:3px;margin-bottom:15px}.hero-badge::before,.hero-badge::after{width:15px}.hero h1{font-size:2.6rem;letter-spacing:-1px;margin-bottom:20px;line-height:1.05}.hero h1 .italic-title{margin-top:5px}.hero p{font-size:.95rem;background-color:transparent;padding:0;margin-bottom:30px;line-height:1.8}.hero-actions{flex-direction:column;gap:12px;width:100%;max-width:280px}.btn{padding:16px 20px;font-size:12px}.btn:active{transform:scale(.96)}section{padding:70px 0}.section-title{font-size:2.2rem;margin-bottom:30px}.ba-item{width:100%;max-width:320px;height:380px;border-radius:150px 150px 0 0}.carousel-wrapper{padding:0 15px}.carousel-item{flex:0 0 85%;height:320px}.price-card{padding:30px 20px}.price-card:hover{transform:none;box-shadow:0 15px 35px rgba(0,0,0,.05)}.price-list li{padding:10px 0;font-size:.95rem}.price-list span{font-size:1.2rem}.zone{padding:70px 5%}.zone-cities-modern{font-size:.8rem;line-height:2.2}.zone-hours-box{padding:15px;width:100%}.contact-card{padding:30px 20px}.form-group input,.form-group textarea,.form-group select{font-size:1rem;padding-top:20px}.floating-call{bottom:15px;right:15px;left:15px;width:auto;height:55px;border-radius:30px;font-size:15px;text-transform:uppercase;font-weight:600;letter-spacing:1px;box-shadow:0 10px 30px rgba(0,0,0,.25)}.floating-call::after{content:" Appeler Tiphaine";margin-left:10px}.floating-call:hover{transform:none;background-color:var(--noir)}.modal-content{padding:30px 20px}.cursor-dot,.cursor-outline{display:none!important}}
+@media (max-width:768px){.top-banner{padding:8px 0;font-size:.65rem}.marquee-content span{margin:0 15px}nav{top:32px;padding:10px 5%}.logo img{height:40px;width:40px}.logo-text{font-size:18px}.menu-toggle{display:block}.nav-links{position:fixed;top:0;left:0;width:100%;height:100dvh;background-color:var(--blanc);flex-direction:column;justify-content:center;align-items:center;gap:30px;transition:all .5s var(--transition-luxe);opacity:0;pointer-events:none;z-index:1002}.nav-links.active{opacity:1;pointer-events:all}.nav-links a{font-size:22px;font-family:var(--font-titre);letter-spacing:2px;transform:translateY(20px);opacity:0;transition:all .5s var(--transition-luxe)}.nav-links.active a{transform:translateY(0);opacity:1}.nav-links.active a:nth-child(1){transition-delay:.1s}.nav-links.active a:nth-child(2){transition-delay:.15s}.nav-links.active a:nth-child(3){transition-delay:.2s}.nav-links.active a:nth-child(4){transition-delay:.25s}.nav-links.active a:nth-child(5){transition-delay:.3s}.nav-links.active a:nth-child(6){transition-delay:.35s}.nav-links.active~.menu-toggle i::before{content:"\f00d"}.menu-toggle{z-index:1003;position:relative;padding:5px}.hero{height:auto;min-height:calc(100dvh - 100px);margin-top:80px;padding:30px 5% 50px 5%;justify-content:center}.hero-bg-circle{display:none}.hero-seal{width:70px;height:70px;margin-bottom:20px}.hero-badge{font-size:.7rem;letter-spacing:3px;margin-bottom:15px}.hero-badge::before,.hero-badge::after{width:15px}.hero h1{font-size:2.6rem;letter-spacing:-1px;margin-bottom:20px;line-height:1.05}.hero h1 .italic-title{margin-top:5px}.hero p{font-size:.95rem;background-color:transparent;padding:0;margin-bottom:30px;line-height:1.8;text-align:center}.hero-actions{flex-direction:column;gap:12px;width:100%;max-width:280px}.btn{padding:16px 20px;font-size:12px;white-space:normal;text-align:center}.btn:active{transform:scale(.96)}section{padding:70px 0}.section-title{font-size:2.2rem;margin-bottom:30px}.ba-item{width:100%;max-width:320px;height:380px;border-radius:150px 150px 0 0}.carousel-wrapper{padding:0 15px}.carousel-item{flex:0 0 85%;height:320px}.price-card{padding:30px 20px}.price-card:hover{transform:none;box-shadow:0 15px 35px rgba(0,0,0,.05)}.price-list li{padding:10px 0;font-size:.95rem}.price-list span{font-size:1.2rem}.zone{padding:70px 5%}.zone-cities-modern{font-size:.8rem;line-height:2.2}.zone-hours-box{padding:15px;width:100%}.contact-card{padding:30px 20px}.form-group input,.form-group textarea,.form-group select{font-size:1rem;padding-top:24px}.form-group label{top:18px}.floating-call{bottom:15px;right:15px;left:15px;width:auto;height:55px;border-radius:30px;font-size:15px;text-transform:uppercase;font-weight:600;letter-spacing:1px;box-shadow:0 10px 30px rgba(0,0,0,.25)}.floating-call::after{content:" Appeler Tiphaine";margin-left:10px}.floating-call:hover{transform:none;background-color:var(--noir)}.modal-content{padding:30px 20px}.cursor-dot,.cursor-outline{display:none!important}}
 </style>
 </head>
 <body>
@@ -233,7 +235,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
     <div class="hero-v-text-left">COIFFURE MIXTE</div>
     <div class="hero-v-text-right">À DOMICILE</div>
     <div class="hero-content">
-        <div class="hero-seal cascade-1"><img src="image/logo.jpg.png" alt="Sceau"></div>
+        <div class="hero-seal cascade-1"><img src="image/logo.jpg.png" alt="Sceau Tiphaine Guermeur"></div>
         <span class="hero-badge cascade-1">L'art de la coiffure</span>
         <h1 class="cascade-2">
             <span class="main-title">POUR TOUS</span>
@@ -249,11 +251,11 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 
 <section id="apropos">
 <div class="about">
-<div class="about-img-wrapper luxury-reveal"><img class="about-img" src="image/portrait.jpg.png" loading="lazy" decoding="async" alt="Tiphaine Guermeur"></div>
+<div class="about-img-wrapper luxury-reveal"><img class="about-img" src="image/portrait.jpg.png" loading="lazy" decoding="async" alt="Portrait de Tiphaine Guermeur"></div>
 <div class="about-text luxury-reveal delay-1">
 <h2>L'expertise au service de votre confort</h2>
 <p>Je m'appelle Tiphaine Guermeur, coiffeuse à domicile basée à Vergèze. Titulaire d'un CAP et d'un BP Coiffure, je possède plus de 20 ans d'expérience et je suis autoentrepreneur depuis 2012.</p>
-<p>Je propose une coiffure mixte pour toute la famille (femmes, hommes, enfants). Ma spécialité ? La <strong>coiffure adaptée</strong>. J'interviens auprès des personnes âgées, à mobilité réduite, en situation de handicap ou atteintes de pathologies, que ce soit à leur domicile, en EHPAD ou en centre de rééducation.</p>
+<p>Je propose une coiffure mixte pour toute la famille (femmes, hommes, enfants). Ma spécialité ? La <strong>coiffure adaptée</strong>. J'interviens auprès des personnes âgées, à mobilité réduite ou en situation de handicap, directement à leur domicile.</p>
 <p>J'adapte ma technique, mon matériel et mon rythme à chaque situation. Mon objectif : vous redonner le sourire et le plaisir d'une coiffure soignée, sans aucune contrainte.</p>
 <div class="signature">Tiphaine G.</div>
 </div>
@@ -265,12 +267,13 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
         <div class="equipment-header luxury-reveal">
             <span class="hero-badge" style="margin-bottom: 15px;">Professionnalisme</span>
             <h2>Un matériel de pointe, une hygiène irréprochable.</h2>
-            <p>Pour vous offrir le meilleur, j'utilise du matériel professionnel haut de gamme, stérilisé après chaque utilisation. Ciseaux japonais, tondeuses de précision, brosses et produits de soin : tout est pensé pour sublimer votre chevelure en toute sécurité.</p>
+            <p>Pour vous offrir le meilleur, j'utilise du matériel professionnel haut de gamme, <strong>désinfecté</strong> après chaque utilisation. Ciseaux japonais, tondeuses de précision, brosses et produits de soin : tout est pensé pour sublimer votre chevelure en toute sécurité.</p>
             <p class="highlight">Le confort et la qualité d'un salon, directement chez vous.</p>
         </div>
         <div class="equipment-grid luxury-reveal delay-1">
             <div class="equipment-img-wrapper">
-                <img src="image/materiel.jpg.png" loading="lazy" decoding="async" alt="Matériel professionnel de coiffure">
+                <!-- NOUVELLE IMAGE MATERIEL 3 ICI -->
+                <img src="image/materiel3.jpg.png" loading="lazy" decoding="async" alt="Matériel professionnel de coiffure">
             </div>
             <div class="equipment-img-wrapper">
                 <img src="image/materiel2.jpg.png" loading="lazy" decoding="async" alt="Sèche-cheveux et produits de soin professionnels">
@@ -304,11 +307,20 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <p class="deplacement-note luxury-reveal">Frais de déplacement inclus</p>
 </section>
 
+<!-- SECTION AVANT / APRES -->
 <section class="before-after-section">
 <h2 class="section-title luxury-reveal"><span>Transformation</span> Avant / Après</h2>
+
+<!-- Premier bloc Avant/Après -->
 <div class="ba-grid luxury-reveal delay-1">
 <div class="ba-item"><img src="image/photo5.jpg.png" loading="lazy" decoding="async" alt="Avant la coupe"><span class="ba-badge">Avant</span></div>
 <div class="ba-item"><img src="image/photo10.jpg.png" loading="lazy" decoding="async" alt="Après la coupe"><span class="ba-badge">Après</span></div>
+</div>
+
+<!-- Deuxième bloc Avant/Après (Nouvelles images) -->
+<div class="ba-grid luxury-reveal delay-2">
+<div class="ba-item"><img src="image/photo13.jpg.png" loading="lazy" decoding="async" alt="Avant la transformation"><span class="ba-badge">Avant</span></div>
+<div class="ba-item"><img src="image/photo14.jpg.png" loading="lazy" decoding="async" alt="Après la transformation"><span class="ba-badge">Après</span></div>
 </div>
 </section>
 
@@ -335,12 +347,14 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <section id="zone" class="zone">
 <h2 class="section-title luxury-reveal"><span>Déplacements</span> Ma zone d'intervention</h2>
 <p class="zone-subtitle luxury-reveal">Afin de vous garantir ponctualité et flexibilité, j'organise mes rendez-vous par secteur géographique. Je me déplace exclusivement dans les communes suivantes :</p>
-<div class="zone-map-wrapper luxury-reveal"><img src="image/carte.jpg.png" loading="lazy" decoding="async" alt="Carte de la zone d'intervention"></div>
+<div class="zone-map-wrapper luxury-reveal"><img src="image/nouvelle-carte.jpg.png" loading="lazy" decoding="async" alt="Carte de la zone d'intervention"></div>
 <div class="zone-cities-modern luxury-reveal delay-1">Vergèze <span>|</span> Codognan <span>|</span> Mus <span>|</span> Uchaud <span>|</span> Vestric-et-Candiac <span>|</span> Bernis <span>|</span> Aimargues <span>|</span> Vauvert <span>|</span> Aigues-Vives</div>
 <div class="zone-hours-box luxury-reveal delay-2">
-<span class="hours-title">Disponibilités à domicile</span>
-<div class="hours-time">Mardis & Vendredis, de 7h à 17h</div>
-<div class="hours-note">(Interventions également possibles en EHPAD et centres de rééducation)</div>
+<span class="hours-title">Interventions à domicile</span>
+<div class="hours-time">Mardis & Vendredis, de 7h à 17h30</div>
+<div class="hours-phone-info">
+    <i class="fas fa-phone"></i> Joignable par téléphone du Lundi au Samedi
+</div>
 </div>
 </section>
 
@@ -361,6 +375,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous - Site Web">
 <div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" "><label for="name">Votre nom & prénom</label></div>
 <div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" "><label for="phone">Votre numéro de téléphone</label></div>
+<div class="form-group"><input type="email" id="email" name="Email" required placeholder=" "><label for="email">Votre adresse email</label></div>
 <div class="form-group"><input type="text" id="address" name="Adresse" required placeholder=" " autocomplete="off"><label for="address">Votre adresse complète (ex: 12 rue des Lilas)</label></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
@@ -417,7 +432,7 @@ if(window.matchMedia("(pointer: fine)").matches){window.addEventListener('scroll
 const ALLOWED_CITIES = ["Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"];
 const COIFFEUSE_ADDRESS = "Vergèze, France";
 const MAX_DRIVE_TIME_MINUTES = 25;
-const API_KEY = 'AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw'; // <--- METTRE LA CLÉ ICI
+const API_KEY = 'AIzaSyAqx-Z-ZrAdnYsSWgx5x-KdjF28J5UJ5pw'; // <--- METTRE LA CLÉ ICI (1er emplacement)
 
 let autocomplete;
 let distanceMatrixService;
@@ -513,7 +528,7 @@ function initPerimeterCheck() {
 
     // --- ENVOI AJAX DU FORMULAIRE ---
     bookingForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); // On bloque l'envoi classique
+        e.preventDefault();
 
         if (addressInput.dataset.verified !== "true") {
             showMessage("Veuillez sélectionner votre adresse complète dans la liste déroulante pour que nous puissions vérifier que vous êtes dans notre zone d'intervention.");
@@ -535,9 +550,8 @@ function initPerimeterCheck() {
             });
             const data = await response.json();
 
-            if (data.success) {
-                // Succès : on affiche un message vert et on réinitialise
-                perimeterMessage.classList.remove('show'); // On cache l'erreur si elle était là
+            if (data.success === true || data.success === "true") {
+                perimeterMessage.classList.remove('show');
                 perimeterMessage.style.backgroundColor = '#F0FDF4';
                 perimeterMessage.style.borderColor = '#4ADE80';
                 perimeterMessage.style.color = '#166534';
@@ -547,8 +561,12 @@ function initPerimeterCheck() {
                 bookingForm.reset();
                 submitBtn.innerHTML = 'Message envoyé !';
                 submitBtn.style.backgroundColor = 'var(--gris-moyen)';
+            } else if (data.message && data.message.toLowerCase().includes("activate")) {
+                showMessage("Votre message est prêt, mais le formulaire doit être activé par la coiffeuse (vérifiez ses emails). Sinon, appelez directement le 06 58 30 12 91.");
+                submitBtn.disabled = false;
+                submitBtn.style.backgroundColor = 'var(--noir)';
+                submitBtn.innerHTML = 'Envoyer le message';
             } else {
-                // Erreur renvoyée par FormSubmit
                 showMessage("Une erreur est survenue. Veuillez réessayer ou m'appeler.");
                 submitBtn.disabled = false;
                 submitBtn.style.backgroundColor = 'var(--noir)';
@@ -566,7 +584,6 @@ function initPerimeterCheck() {
 
 function showMessage(text) {
     const perimeterMessage = document.getElementById('perimeter-message');
-    // On remet les couleurs rouges par défaut pour les erreurs
     perimeterMessage.style.backgroundColor = '#FEF2F2';
     perimeterMessage.style.borderColor = '#F87171';
     perimeterMessage.style.color = '#991B1B';
