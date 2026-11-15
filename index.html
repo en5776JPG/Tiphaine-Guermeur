@@ -212,7 +212,7 @@ section{padding:100px 0}
     border: 1px solid #ccc !important; 
     box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; 
     margin-top: 5px;
-    z-index: 999999 !important; /* Passe au-dessus de tout, même du menu mobile */
+    z-index: 999999 !important;
 }
 .pac-item { padding: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; line-height: 1.5 !important;}
 .pac-item:hover { background-color: #f0f0f0 !important; }
@@ -339,6 +339,44 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
     .cursor-dot,.cursor-outline{display:none!important}
 }
 </style>
+
+<!-- ========================================== -->
+<!-- SEO : DONNÉES STRUCTURÉES POUR GOOGLE      -->
+<!-- ========================================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "@id": "https://tiphaineguermeur.fr/#business",
+  "name": "Tiphaine Guermeur",
+  "url": "https://tiphaineguermeur.fr",
+  "telephone": "+33658301291",
+  "image": "https://tiphaineguermeur.fr/image/portrait.jpg.png",
+  "priceRange": "€€",
+  "description": "Coiffeuse à domicile à Vergèze, spécialiste de la coiffure adaptée pour seniors et personnes à mobilité réduite (PMR).",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Vergèze",
+    "addressRegion": "Occitanie",
+    "postalCode": "30310",
+    "addressCountry": "FR"
+  },
+  "areaServed": [
+    "Vergèze", "Codognan", "Mus", "Uchaud", "Vestric-et-Candiac", 
+    "Bernis", "Aimargues", "Vauvert", "Aigues-Vives"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Tuesday", "Friday"],
+    "opens": "07:00",
+    "closes": "17:30"
+  },
+  "sameAs": [
+    "https://www.facebook.com/share/1DL6T6WiW1/",
+    "https://share.google/Mhqo7frRgGvEuOraN"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -454,7 +492,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <div class="ba-item"><img src="image/photo10.jpg.png" loading="lazy" decoding="async" alt="Après la coupe"><span class="ba-badge">Après</span></div>
 </div>
 
-<!-- Deuxième bloc Avant/Après (Zoom identique au premier) -->
+<!-- Deuxième bloc Avant/Après -->
 <div class="ba-grid luxury-reveal delay-2">
 <div class="ba-item"><img src="image/photo13.jpg.png" loading="lazy" decoding="async" alt="Avant la transformation"><span class="ba-badge">Avant</span></div>
 <div class="ba-item"><img src="image/photo14.jpg.png" loading="lazy" decoding="async" alt="Après la transformation"><span class="ba-badge">Après</span></div>
@@ -507,7 +545,6 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 </div>
 <a href="tel:0658301291" class="phone-giant"><i class="fas fa-phone-alt"></i> 06 58 30 12 91</a>
 
-<!-- CORRECTION FORMULAIRE : Ajout de autocomplete="off" -->
 <form class="contact-form" id="booking-form" action="https://formsubmit.co/ajax/tiphaine.guermeur.coiffure.pro@gmail.com" method="POST" autocomplete="off">
 <p class="form-separator">Ou laissez-moi un message</p>
 <input type="hidden" name="_captcha" value="false">
@@ -515,7 +552,6 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" " autocomplete="off"><label for="name">Votre nom & prénom</label></div>
 <div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" " autocomplete="off"><label for="phone">Votre numéro de téléphone</label></div>
 <div class="form-group"><input type="email" id="email" name="Email" required placeholder=" " autocomplete="off"><label for="email">Votre adresse email</label></div>
-<!-- CORRECTION ADRESSE : name="contact_address" et autocomplete="new-password" -->
 <div class="form-group"><input type="text" id="address" name="contact_address" required placeholder=" " autocomplete="new-password"><label for="address">Votre adresse complète (ex: 12 rue des Lilas)</label></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
@@ -536,7 +572,7 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 <span class="close-modal" onclick="closeModal('modal-mentions')">&times;</span>
 <h2>Mentions Légales</h2>
 <h3>1. Éditeur du site</h3><p>Le site est édité par : <strong>Tiphaine Guermeur</strong><br>Statut : Micro-entreprise<br>SIRET : 538 596 750 000 17<br>Téléphone : 06 58 30 12 91<br>Adresse : Vergèze (30)</p>
-<h3>2. Hébergement</h3><p>Ce site est hébergé par : [Nom de l'hébergeur, ex: OVHcloud]<br>Adresse : [Adresse de l'hébergeur]</p>
+<h3>2. Hébergement</h3><p>Ce site est hébergé par : OVHcloud<br>Adresse : 2 rue Kellermann - 59100 Roubaix - France</p>
 <h3>3. Propriété intellectuelle</h3><p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle.</p>
 </div>
 </div>
@@ -582,6 +618,16 @@ function initPerimeterCheck() {
     const submitBtn = document.getElementById('submit-btn');
     const perimeterMessage = document.getElementById('perimeter-message');
     const bookingForm = document.getElementById('booking-form');
+
+    // Vérification que Google Maps est bien chargé
+    if (typeof google === 'undefined' || !google.maps || !google.maps.places) {
+        console.error("Google Maps API non chargée. Vérifiez votre clé API et les restrictions.");
+        // On débloque le bouton pour ne pas bloquer l'utilisateur en cas de panne de Google
+        submitBtn.disabled = false;
+        submitBtn.style.backgroundColor = 'var(--noir)';
+        submitBtn.innerHTML = 'Envoyer le message';
+        return; 
+    }
 
     autocomplete = new google.maps.places.Autocomplete(addressInput, {
         types: ['address'],
