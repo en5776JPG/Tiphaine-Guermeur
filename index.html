@@ -13,7 +13,6 @@
 :root{
     --creme:#f9f8f5;--sable:#e8e2d9;--sable-clair:#f4f2ed;--noir:#0a0a0a;--gris-fonce:#2a2a2a;--gris-zone:#151515;--gris-moyen:#888;--or:#c5a880;--blanc:#fff;
     --font-titre:'Playfair Display',serif;--font-texte:'Montserrat',sans-serif;
-    /* Courbe d'animation "Premium" (type Apple) plus douce et fluide */
     --transition-luxe:cubic-bezier(0.16, 1, 0.3, 1);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -206,6 +205,20 @@ section{padding:100px 0}
 .form-group input:focus~label,.form-group input:not(:placeholder-shown)~label,.form-group textarea:focus~label,.form-group textarea:not(:placeholder-shown)~label,.form-group select:focus~label,.form-group select:not([value=""])~label{top:6px;font-size:.65rem;color:var(--or);font-weight:600;text-transform:uppercase;letter-spacing:1px}
 ::placeholder{color:transparent!important}
 
+/* CORRECTION GOOGLE MAPS AUTOCOMPLETE */
+.pac-container { 
+    font-family: var(--font-texte) !important; 
+    border-radius: 4px !important; 
+    border: 1px solid #ccc !important; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; 
+    margin-top: 5px;
+    z-index: 999999 !important; /* Passe au-dessus de tout, même du menu mobile */
+}
+.pac-item { padding: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; line-height: 1.5 !important;}
+.pac-item:hover { background-color: #f0f0f0 !important; }
+.pac-item-query { font-weight: 600 !important; color: var(--noir) !important; }
+.pac-matched { color: var(--or) !important; font-weight: 700 !important; }
+
 /* Message d'erreur / succès Premium */
 #perimeter-message{
     display: none;
@@ -225,13 +238,6 @@ section{padding:100px 0}
 }
 #perimeter-message i { font-size: 1.2rem; color: #DC2626; margin-top: 3px; }
 #perimeter-message.show { display: flex; }
-
-/* Autocomplétion Google */
-.pac-container { font-family: var(--font-texte) !important; border-radius: 4px !important; border: 1px solid #ccc !important; box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; margin-top: 5px; }
-.pac-item { padding: 10px !important; cursor: pointer !important; font-size: 0.95rem !important; }
-.pac-item:hover { background-color: #f0f0f0 !important; }
-.pac-item-query { font-weight: 600 !important; color: var(--noir) !important; }
-.pac-matched { color: var(--or) !important; font-weight: 700 !important; }
 
 /* Footer & Boutons flottants */
 footer{background-color:var(--noir);color:#888;text-align:center;padding:50px 20px;font-size:.8rem;font-weight:400}
@@ -398,7 +404,6 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
         </div>
         <div class="equipment-grid luxury-reveal delay-1">
             <div class="equipment-img-wrapper">
-                <!-- Nouvelle image Matériel 1 -->
                 <img src="image/materiel-nouveau.jpg.png" loading="lazy" decoding="async" alt="Matériel professionnel de coiffure">
             </div>
             <div class="equipment-img-wrapper">
@@ -501,14 +506,17 @@ footer a:hover{color:var(--blanc);border-color:var(--blanc)}
 </p>
 </div>
 <a href="tel:0658301291" class="phone-giant"><i class="fas fa-phone-alt"></i> 06 58 30 12 91</a>
-<form class="contact-form" id="booking-form" action="https://formsubmit.co/ajax/tiphaine.guermeur.coiffure.pro@gmail.com" method="POST">
+
+<!-- CORRECTION FORMULAIRE : Ajout de autocomplete="off" -->
+<form class="contact-form" id="booking-form" action="https://formsubmit.co/ajax/tiphaine.guermeur.coiffure.pro@gmail.com" method="POST" autocomplete="off">
 <p class="form-separator">Ou laissez-moi un message</p>
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nouvelle demande de rendez-vous - Site Web">
-<div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" "><label for="name">Votre nom & prénom</label></div>
-<div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" "><label for="phone">Votre numéro de téléphone</label></div>
-<div class="form-group"><input type="email" id="email" name="Email" required placeholder=" "><label for="email">Votre adresse email</label></div>
-<div class="form-group"><input type="text" id="address" name="Adresse" required placeholder=" " autocomplete="off"><label for="address">Votre adresse complète (ex: 12 rue des Lilas)</label></div>
+<div class="form-group"><input type="text" id="name" name="Nom" required placeholder=" " autocomplete="off"><label for="name">Votre nom & prénom</label></div>
+<div class="form-group"><input type="tel" id="phone" name="Telephone" required placeholder=" " autocomplete="off"><label for="phone">Votre numéro de téléphone</label></div>
+<div class="form-group"><input type="email" id="email" name="Email" required placeholder=" " autocomplete="off"><label for="email">Votre adresse email</label></div>
+<!-- CORRECTION ADRESSE : name="contact_address" et autocomplete="new-password" -->
+<div class="form-group"><input type="text" id="address" name="contact_address" required placeholder=" " autocomplete="new-password"><label for="address">Votre adresse complète (ex: 12 rue des Lilas)</label></div>
 <div class="form-group"><textarea id="message" name="Message" rows="3" required placeholder=" "></textarea><label for="message">Votre message</label></div>
 <div id="perimeter-message"></div>
 <button type="submit" class="btn" id="submit-btn" disabled style="width: 100%; margin-top: 10px; background-color: var(--gris-moyen); color: var(--blanc);">Veuillez sélectionner une adresse</button>
